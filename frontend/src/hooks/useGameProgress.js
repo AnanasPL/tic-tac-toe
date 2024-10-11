@@ -1,7 +1,8 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { socketContext } from '../../contexts/socketContext';
-import { messageContext } from '../../contexts/messageContext';
-import { modalVisibleContext } from '../../contexts/modalContext';
+
+import { socketContext } from '../contexts/socketContext';
+import { messageContext } from '../contexts/messageContext';
+import { modalVisibleContext } from '../contexts/modalContext';
 
 const useGameProgress = (setPlayAgain) => {
   const { addMessageListener, removeMessageListener } = useContext(socketContext);

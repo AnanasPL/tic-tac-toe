@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { socketContext } from "../../contexts/socketContext";
-import { messageContext } from "../../contexts/messageContext";
+import { socketContext } from "../contexts/socketContext";
+import { messageContext } from "../contexts/messageContext";
 
 const useBoardState = (playerSymbol, setCurrentPlayer) => {
   const [boardState, setBoardState] = useState(Array(9).fill(''));

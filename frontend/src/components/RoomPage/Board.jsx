@@ -1,11 +1,15 @@
 import React, { useEffect, useContext, useMemo, useState } from "react"
-import Cell from "./Cell"
+
 import { useParams } from "react-router-dom"
+
+import useGameProgress from "../../hooks/useGameProgress";
+import usePlayerState from "../../hooks/usePlayerState";
+import useBoardState from "../../hooks/useBoardState";
+
 import { socketContext } from "../../contexts/socketContext"
-import useGameProgress from "./hooks/useGameProgress";
-import usePlayerState from "./hooks/usePlayerState";
-import useBoardState from "./hooks/useBoardState";
 import { messageContext } from "../../contexts/messageContext";
+
+import Cell from "./Cell"
 import WinnerInfo from "./WinnerInfo";
 
 const Board = () => {

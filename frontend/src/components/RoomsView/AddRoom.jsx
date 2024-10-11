@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { socketContext } from "./contexts/socketContext";
+import { socketContext } from "../../contexts/socketContext";
 import { useNavigate } from "react-router-dom";
 
 const AddRoom = () => {

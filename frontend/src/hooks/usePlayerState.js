@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { socketContext } from "../../contexts/socketContext";
+import { socketContext } from "../contexts/socketContext";
 
 const usePlayerState = () => {
   const playerSymbol = useRef('');

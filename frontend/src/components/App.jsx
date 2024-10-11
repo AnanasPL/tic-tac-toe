@@ -2,8 +2,8 @@ import React from 'react'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { socketContext } from "./components/contexts/socketContext"
-import useSocket from "./components/hooks/useSocket"
+import { socketContext } from "../contexts/socketContext"
+import useSocket from "../hooks/useSocket"
 
 import Rooms from './RoomsView/Rooms'
 import RoomPage from './RoomPage/RoomPage'
