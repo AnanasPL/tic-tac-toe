@@ -1,0 +1,113 @@
+import React, { useEffect, useContext, useMemo, useState } from "react"
+import Cell from "./Cell"
+import { useParams } from "react-router-dom"
+import { socketContext } from "../../contexts/socketContext"
+import useGameProgress from "./hooks/useGameProgress";
+import usePlayerState from "./hooks/usePlayerState";
+import useBoardState from "./hooks/useBoardState";
+import { messageContext } from "../../contexts/messageContext";
+import WinnerInfo from "./WinnerInfo";
+
+const Board = () => {
+    const { emit } = useContext(socketContext)
+    const setMessage = useContext(messageContext)
+
+    const { playerSymbol, currentPlayer, setCurrentPlayer } = usePlayerState()
+    const boardState = useBoardState(playerSymbol, setCurrentPlayer);
+    
+    const [playAgain, setPlayAgain] = useState(0);
+    const { gameInProgress, winner } = useGameProgress(setPlayAgain)
+    const { roomCode } = useParams()
+
+    const handleClick = useMemo(() => (id) => {
+        if (!gameInProgress()) return
+        if (!currentPlayer) {
+            setMessage('Poczekaj na kolej swą')
+            return
+        }
+        if (boardState[id]) {
+            setMessage('Pole niedostępne')
+            return
+        }
+        
+        setMessage('')
+
+        emit('board-update', {changedCell: {index: id, symbol: playerSymbol.current}})
+    }, [currentPlayer, gameInProgress, setMessage, emit, boardState, playerSymbol])
+    //TODO: consider cell state management, consider further decentralization
+    useEffect(() => {
+        emit('join-room', {code: roomCode})
+
+        return () => {
+            emit('leave-room', {code: roomCode})
+        }
+    }, [])
+    
+    useEffect(() => {
+        
+    }, [winner])
+
+    const getWinnerInfo = () => {
+        if (!winner) return
+
+        if (winner === playerSymbol.current) {
+            return (
+                <div>
+                    <p>Wygrywasz!</p>
+                    <p style={{fontSize: 60}}>{playerSymbol.current}</p>
+                    <p>Graczy chcących zagrac ponownie: {playAgain}</p>
+                </div>
+            )
+        } else if (winner === 'tie') {
+            return (
+                <div>
+                    <p>Remis!</p>
+                    <p style={{fontSize: 60}}>{playerSymbol.current}</p>
+                    <p>Graczy chcących zagrac ponownie: {playAgain}</p>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <p>Przegrywasz!</p>
+                    <p style={{fontSize: 60}}>{playerSymbol.current === 'X' ? 'X' : 'O'}</p>
+                    <p>Graczy chcących zagrac ponownie: {playAgain}</p>
+                </div>
+            )
+        }
+    } 
+
+    return (
+        <div className="board">
+            {boardState.map((val, id) => <Cell value={val} onClick={() => handleClick(id)} key={id}/>)}
+            {winner && <button onClick={() => emit('game-restart')}>RESTART</button>}
+            {winner && (
+                <WinnerInfo hide={() => {emit('game-restart'); setPlayAgain(1)}}>
+                    <div>
+                        {getWinnerInfo()}
+                        <div className="players-play-again-status-wrapper">
+                            <div className="player-status-wrapper">
+                                <div className="player-symbol">
+                                    X
+                                </div>
+                                <div className="play-again-status">
+                                    costam narazie zeby bylo
+                                </div>
+                            </div>
+                            <div className="player-status-wrapper">
+                                <div className="play-again-status">
+                                    costam narazie zeby bylo
+                                </div>
+                                <div className="player-symbol">
+                                    O
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </WinnerInfo>
+            )}
+        </div>
+    )
+}
+
+export default Board
