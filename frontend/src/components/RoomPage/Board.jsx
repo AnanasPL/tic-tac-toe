@@ -16,7 +16,7 @@ const Board = () => {
     const { emit } = useContext(socketContext)
     const setMessage = useContext(messageContext)
 
-    const { playerSymbol, currentPlayer, setCurrentPlayer } = usePlayerState()
+    const { playerSymbol, setCurrentPlayer } = usePlayerState()
     const boardState = useBoardState(playerSymbol, setCurrentPlayer);
 
     const { gameStarted, winner, playAgainState } = useGameProgress()
@@ -78,18 +78,18 @@ const Board = () => {
                         <div className="players-play-again-status-wrapper">
                             <div className="player-status-wrapper">
                                 <div className="player-symbol">
-                                    X
+                                    O
                                 </div>
                                 <div className="play-again-status">
-                                    {playAgainState.X}
+                                    {playAgainState.O}
                                 </div>
                             </div>
                             <div className="player-status-wrapper">
                                 <div className="play-again-status">
-                                    {playAgainState.O}
+                                    {playAgainState.X}
                                 </div>
                                 <div className="player-symbol">
-                                    O
+                                    X
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,7 @@ class GameEvents:
                 error_message = "Poczekaj na swoją kolej"
             except ValueError:
                 error_message = "Pole niedostępne"
-            finally:    
+            finally:
                 if error_message:
                     emit('board-update-error', {'message': error_message})
                     return
@@ -37,7 +37,7 @@ class GameEvents:
             room = rooms.get_player_room(request.sid)
             room.game_state.player_wants_to_play_again(request.sid, True)
             
-            player_symbol = room.game_state.players[request.sid]['symbol']
+            player_symbol = room.game_state.get_player_by_session_id(request.sid).symbol
 
             emit('restart-request', {'symbol': player_symbol}, to=room.code)
             
