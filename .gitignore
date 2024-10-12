@@ -26,4 +26,4 @@
 /__pycache__/
 /backend/__pycache__
 /backend/*/__pycache__
-*.pyc
+/backend/*/*/__pycache__
