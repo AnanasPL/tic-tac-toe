@@ -27,21 +27,10 @@ const Board = () => {
             setMessage('Oczekiwanie na drugiego gracza')
             return
         }
-        if (!currentPlayer) {
-            setMessage('Poczekaj na kolej swą')
-            return
-        }
-        if (boardState[id]) {
-            setMessage('Pole niedostępne')
-            return
-        }
         
-        setMessage('')
         emit('board-update', {changedCell: {index: id, symbol: playerSymbol.current}})
-    }, [currentPlayer, gameStarted, setMessage, emit, boardState, playerSymbol])
+    }, [gameStarted, setMessage, emit, playerSymbol])
     //TODO: consider cell state management, consider further decentralization
-    
-
     
     useEffect(() => {
         emit('join-room', {code: roomCode})
@@ -51,8 +40,6 @@ const Board = () => {
         }
     }, [])
     
-    
-
     const getWinnerInfo = () => {
         if (!winner) return
 

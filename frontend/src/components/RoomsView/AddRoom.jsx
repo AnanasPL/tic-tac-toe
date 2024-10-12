@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AddRoom = () => {
 	const { emit, addMessageListener } = useContext(socketContext);
 	const navigate = useNavigate()
-	console.log(emit)
+	
 	useEffect(() => {
 		addMessageListener("room-created-successfully", ({ code }) => {
 			navigate(`/room/${code}`)

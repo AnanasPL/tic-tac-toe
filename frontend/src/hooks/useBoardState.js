@@ -15,9 +15,15 @@ const useBoardState = (playerSymbol, setCurrentPlayer) => {
       setCurrentPlayer(symbol !== playerSymbol.current);
       setMessage('')
     }
+
+    const boardUpdateErrorFn = ({ message }) => setMessage(message)
     
     addMessageListener('board-update', boardUpdateFn, true);
-    return () => removeMessageListener('board-update', boardUpdateFn)
+    addMessageListener('board-update-error', boardUpdateErrorFn, true);
+    return () => {
+      removeMessageListener('board-update', boardUpdateFn)
+      removeMessageListener('board-update-error', boardUpdateErrorFn, true);
+    }
   }, [boardState]);
 
   useEffect(() => {
