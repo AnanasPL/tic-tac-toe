@@ -116,6 +116,19 @@ class GameState:
         
         self.players[player_sid]['wantsToPlayAgain'] = True
     
+    def get_player_info(self, player_sid: str) -> dict:
+        if player_sid not in self.players.keys():
+            raise KeyError(f"Player with the session id of \'{player_sid}\' is not in the room")
+    
+        return self.players[player_sid]
+    
+    def get_opposing_player_info(self, player_sid) -> dict:
+        for sid, info in self.players.items():
+            if sid == player_sid:
+                continue
+            
+            return info
+    
     def restart_game(self) -> bool:
         if not self.game_ended:
             raise PermissionError("The game is not finished!")

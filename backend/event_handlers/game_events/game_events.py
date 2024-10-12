@@ -21,26 +21,21 @@ class GameEvents:
             
             if winner:
                 emit('game-ended', winner, to=room.code)
-                
-        @self.socketio.on('game-restart')
-        def restart_game():
-            print('restart request from', request.sid)
+               
+        @self.socketio.on('restart-request')
+        def restart_request():
             room = rooms.get_player_room(request.sid)
             room.game_state.player_wants_to_play_again(request.sid)
             
+            player_symbol = room.game_state.players[request.sid]['symbol']
+
+            emit('restart-request', {'symbol': player_symbol}, to=room.code)
+            
+            # If both players want to restart the game
             if not room.game_state.restart_game():
                 return
             
-            for player, info in room.game_state.players.items():
-                if player == request.sid:
-                    player_state = info
-                else:
-                    player_state2 = info
-            
-            print('info sent to player one', player_state)
-            print('info sent to player two', player_state2)
-            
-            emit('player-info', player_state)
-            emit('player-info', player_state2, to=room.code, include_self=False)
+            emit('player-info', room.game_state.get_player_info(request.sid))
+            emit('player-info', room.game_state.get_opposing_player_info(request.sid), to=room.code, include_self=False)
             emit('board-clear', to=room.code)
             emit('game-restarted', to=room.code)

@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import Room from "./RoomInfo";
-import AddRoom from "./AddRoom";
+
 import { roomContext } from "../../contexts/roomContext";
 import { socketContext } from "../../contexts/socketContext";
+
+import Room from "./RoomInfo";
+import AddRoom from "./AddRoom";
 
 const Rooms = () => {
     const [rooms, setRooms] = useState([])

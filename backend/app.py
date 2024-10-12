@@ -1,8 +1,7 @@
 from flask import Flask, request
 from flask_socketio import SocketIO, emit
 
-from event_handlers.game_events import GameEvents
-from event_handlers.room_events import RoomEvents
+from event_handlers import GameEvents, RoomEvents
 from event_handlers.shared import rooms
 
 app = Flask(__name__)

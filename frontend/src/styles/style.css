@@ -93,3 +93,36 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, .7);
 }
+
+.players-play-again-status-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.player-status-wrapper {
+    display: flex;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.player-status-wrapper * {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.player-symbol {
+    width: 40px;
+}
+
+.play-again-status {
+    width: 100px;
+}
+
+.player-symbol {
+    display: flex;
+    font-size: 30px;
+}

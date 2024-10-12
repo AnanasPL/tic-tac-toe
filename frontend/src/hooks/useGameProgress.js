@@ -1,54 +1,56 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { socketContext } from '../contexts/socketContext';
-import { messageContext } from '../contexts/messageContext';
 import { modalVisibleContext } from '../contexts/modalContext';
 
-const useGameProgress = (setPlayAgain) => {
+const useGameProgress = () => {
   const { addMessageListener, removeMessageListener } = useContext(socketContext);
-  const setMessage = useContext(messageContext)
 
   const hasGameStarted = useRef(false);
   const hasGameEnded = useRef(false);
 
   const [winner, setWinner] = useState(null);
+  const [playAgainState, setPlayAgainState] = useState({ O: null, X: null })
 
-  const gameInProgress = () => {
-    if (!hasGameStarted.current) {
-      setMessage('Poczekaj na rozpoczęcie gry');
-      return false;
-    };
+  const gameStarted = () => hasGameStarted.current
 
-    return !hasGameEnded.current;
-  };
+  const restartRequestFn = useCallback(({ symbol }) => {
+      setPlayAgainState({...playAgainState, [symbol]: `\u2714`})
+  }, [playAgainState])
 
-  
-  useEffect(() => {
-    const gameStartedFn = () => hasGameStarted.current = true;
+  useEffect(() => {   
+    addMessageListener('restart-request', restartRequestFn, true)
     
-    const gameEndedFn = ({ winner }) => {
+    return () => removeMessageListener('restart-request', restartRequestFn)
+  }, [restartRequestFn])
+
+
+  useEffect(() => {
+    const startGame = () => hasGameStarted.current = true;
+    
+    const endGame = ({ winner }) => {
       hasGameEnded.current = true;
       setWinner(winner)
-      setPlayAgain(0)
     }
     const restartGame = () => {
       hasGameStarted.current = true;
       hasGameEnded.current = false;
       setWinner(null)
+      setPlayAgainState({ O: null, X: null})
     };
 
-    addMessageListener('game-started', gameStartedFn);
-    addMessageListener('game-ended', gameEndedFn);
+    addMessageListener('game-started', startGame);
+    addMessageListener('game-ended', endGame);
     addMessageListener('game-restarted', restartGame)
 
     return () => {
-      removeMessageListener('game-started', gameStartedFn);
-      removeMessageListener('game-ended', gameEndedFn);
+      removeMessageListener('game-started', startGame);
+      removeMessageListener('game-ended', endGame);
       removeMessageListener('game-restarted', restartGame);
     }
   }, []);
   
-  return { gameInProgress, winner };
+  return { gameStarted, winner, playAgainState };
 };
 
 export default useGameProgress;
