@@ -2,6 +2,7 @@ from string import ascii_letters, digits
 from random import choice
 from typing import Union
 
+from errors import PlayerNotFoundError
 from .gamestate import GameState
 from .player import Player
 
@@ -133,11 +134,11 @@ class Rooms:
             Room: The room that the player is currently connected to
             
         Raises:
-            KeyError: If the player is not in any room
+            PlayerNotFoundError: If the player is not in any room
         """
         
         if not session_id in self.get_all_players_session_ids():
-            raise KeyError(f"The player with given session id {session_id} is not in any room")
+            raise PlayerNotFoundError(f"The player with given session id {session_id} is not in any room")
         
         return list(filter(lambda room: session_id in room.get_players_session_ids(), self._rooms))[0]
     

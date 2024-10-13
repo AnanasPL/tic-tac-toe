@@ -1,4 +1,5 @@
 from typing import Union
+from errors import FieldAlreadyTakenError
 
 
 class Board:
@@ -27,12 +28,12 @@ class Board:
 
         Raises:
             IndexError: If the index is not in the range 0-8
-            ValueError: If the field is already taken
+            FieldAlreadyTakenError: If the field is already taken
         """
         if not index > -1 or not index < 9:
             raise IndexError(f"Index must be an integer in range 0-8")
         if self._board_state[index] != '':
-            raise ValueError(f"The field with the index {index} is already taken")
+            raise FieldAlreadyTakenError(f"The field with the index {index} is already taken")
         
         self._board_state[index] = symbol
         

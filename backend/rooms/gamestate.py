@@ -1,7 +1,8 @@
 from typing import Union
+
+from errors import *
 from .board import Board
 from .player import Player
-
 
 class GameState:   
     """Game state of a Tic-Tac-Toe game.
@@ -26,10 +27,10 @@ class GameState:
             player_sid (str): The session id of the player
 
         Raises:
-            KeyError: If the player is not in the room
+            PlayerNotFoundError: If the player is not in the room
         """
         if player_sid not in self.get_players_session_ids():
-            raise KeyError(f"There is no player with the session id of '{player_sid}' in the room")
+            raise PlayerNotFoundError(f"There is no player with the session id of '{player_sid}' in the room")
         
     def get_player_by_session_id(self, player_sid: str) -> Player:
         """Returns the player object of the given player id
@@ -38,7 +39,7 @@ class GameState:
             player_sid (str): The session id of the player
         
         Raises:
-            KeyError: If the player is not in the room
+            PlayerNotFoundError: If the player is not in the room
         """
         self._check_for_player(player_sid)
         
@@ -56,10 +57,10 @@ class GameState:
             Player: The added player
 
         Raises:
-            PermissionError: If the room is already full
+            RoomAlreadyFullError: If the room is already full
         """
         if len(self.players) >= 2:
-            raise PermissionError("There can be at most 2 players in the room") # TODO: spectating
+            raise RoomAlreadyFullError("There can be at most 2 players in the room") # TODO: spectating
         
         self.players.add(Player(
             player_sid, 
@@ -77,7 +78,7 @@ class GameState:
             player_sid (str): Session id of the player to be removed
 
         Raises:
-            KeyError: If the player is not in the room
+            PlayerNotFoundError: If the player is not in the room
         """
         player = self.get_player_by_session_id(player_sid)
         self.players.discard(player)
@@ -90,15 +91,17 @@ class GameState:
             player_sid (str): Session id of the player that made a move
 
         Raises:
-            KeyError: If the player is not in the room
+            PlayerNotFoundError: If the player is not in the room
             IndexError: If the index is out of range 0-8
-            ValueError: If the field is already taken
-            PermissionError: If its not the turn of the player
+            FieldAlreadyTakenError: If the field is already taken
+            TurnError: If its not the turn of the player
         """
+        # if len(self.players) != 2:
+        #     raise er
         player = self.get_player_by_session_id(player_sid)
         
         if not player.is_current_player:
-            raise PermissionError(f"It is not turn of the player with the session id of {player_sid}")
+            raise TurnError(f"It is not turn of the player with the session id of {player_sid}")
         
         self.board.update(index, player.symbol)
         self._change_turn()
@@ -129,7 +132,7 @@ class GameState:
             decision (bool): Whether the player wants to play again, or not
             
         Raises:
-            KeyError: If the player is not in the room
+            PlayerNotFoundError: If the player is not in the room
         """
         self.get_player_by_session_id(player_sid).wants_to_play_again = decision
     
@@ -145,7 +148,7 @@ class GameState:
                 `{'symbol': str, 'isCurrentPlayer': bool, 'wantsToPlayAgain': bool}`
                 
         Raises:
-            KeyError: If the player is not in the room
+            PlayerNotFoundError: If the player is not in the room
         """
         return self.get_player_by_session_id(player_sid).get_state()
     
