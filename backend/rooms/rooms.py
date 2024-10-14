@@ -36,6 +36,9 @@ class Room:
                 The code of the given length, containing only 
                 lower- and uppercase letters and digits
         """
+        if length <= 0:
+            raise ValueError("The length of the code must be greater than 0")
+        
         allowed_characters = ascii_letters + digits
         room_code = ""
         
@@ -52,6 +55,9 @@ class Room:
 
         Returns:
             Player: The player object of the added player
+            
+        Raises:
+            RoomAlreadyFullError: If the room is already full (2 players is the max)
         """
         return self.game_state.add_player(session_id)
         
@@ -71,7 +77,17 @@ class Room:
     def get_size(self) -> int:
         """Returns how many players that are in the room"""
         return len(self.game_state.players)
+    
+    def is_player_in_the_room(self, session_id: str) -> bool:
+        """Returns whether the player with the given session id is found in the room or not
 
+        Args:
+            session_id (str): The session id of the player
+
+        Returns:
+            bool: `True` if the player is in the room. `False` if not
+        """
+        return session_id in self.get_players_session_ids()
 
 class Rooms:
     """Managing Flask SocketIO rooms"""

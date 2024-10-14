@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_socketio import SocketIO
-from flask.testing import FlaskClient
 from event_handlers import GameEvents, RoomEvents, ConnectionEvents
 
 app = Flask(__name__).test_client()

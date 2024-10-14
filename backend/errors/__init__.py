@@ -4,5 +4,6 @@ __all__ = [
     'PlayerNotFoundError',
     'FieldAlreadyTakenError',
     'TurnError',
-    'RoomAlreadyFullError'
+    'RoomAlreadyFullError',
+    'GameHasNotStartedError'
     ]

@@ -18,7 +18,7 @@ class GameState:
                 
     def get_players_session_ids(self) -> tuple[str]:
         """Returns a tuple with all the session ids of the players in the game"""
-        return (player.session_id for player in self.players)   
+        return tuple(player.session_id for player in self.players)   
     
     def _check_for_player(self, player_sid: str) -> None:
         """Checks if player with the given session id is in the room
@@ -65,8 +65,6 @@ class GameState:
         self.players.add(Player(
             player_sid, 
             'O' if len(self.players) == 0 else 'X',
-            len(self.players) == 0,
-            None
         ))
                 
         return self.get_player_by_session_id(player_sid)
@@ -91,13 +89,15 @@ class GameState:
             player_sid (str): Session id of the player that made a move
 
         Raises:
+            GameHasNotStartedError: If there is only one player in the room
             PlayerNotFoundError: If the player is not in the room
+            TurnError: If its not the turn of the player
             IndexError: If the index is out of range 0-8
             FieldAlreadyTakenError: If the field is already taken
-            TurnError: If its not the turn of the player
         """
-        # if len(self.players) != 2:
-        #     raise er
+        if len(self.players) != 2:
+            raise GameHasNotStartedError(f"The game has not started yet - there is only one player in the room")
+        
         player = self.get_player_by_session_id(player_sid)
         
         if not player.is_current_player:
@@ -111,18 +111,23 @@ class GameState:
         for player in self.players:
             player.change_turn()
             
-    def get_winner(self) -> Union[str, None]:
+    def get_winner(self) -> Union[Player, str, None]:
         """Returns the winner of the game
 
         Returns:
-            str:
-                `O` or `X` if there is a winner, and `tie` if the game has ended and
-                neither of the players won
+            Player: The winner of the game, if there is one
                 
-            None: 
-                If there is no winner and the game is still in progress
+            str: If the game ended, but neither of the players won, `tie` is returned
+            
+            None: If there is no winner and the game is still in progress
         """
-        return self.board.get_winner()
+        winner = self.board.get_winner()
+        
+        try:
+            return self.get_player_by_symbol(winner)
+        except PlayerNotFoundError:
+            if winner == 'tie':
+                return winner
     
     def player_wants_to_play_again(self, player_sid: str, decision: bool) -> None:
         """Sets the wants_to_play_again property of the player with given session id
@@ -151,6 +156,25 @@ class GameState:
             PlayerNotFoundError: If the player is not in the room
         """
         return self.get_player_by_session_id(player_sid).get_state()
+    
+    def get_player_by_symbol(self, symbol: str) -> Player:
+        """Returns the Player that has the given symbol
+
+        Args:
+            symbol (str): A single character being player's symbol
+
+        Returns:
+            Player: Player with the given symbol
+            
+        Raises:
+            PlayerNotFoundError: If there is no player with such symbol
+        """
+        
+        for player in self.players:
+            if player.symbol == symbol:
+                return player
+            
+        raise PlayerNotFoundError(f"There is no player with the symbol '{symbol}'")
     
     def get_opposing_player_info(self, player_sid) -> Union[dict, None]:
         """Returns the player state of the player with the session id **other** than the given

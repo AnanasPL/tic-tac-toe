@@ -5,6 +5,8 @@
 
 # testing
 /frontend/coverage
+.pytest_cache
+.coverage
 
 # production
 /frontend/build
@@ -27,3 +29,4 @@
 /backend/__pycache__
 /backend/*/__pycache__
 /backend/*/*/__pycache__
+/backend/*/*/*/__pycache__

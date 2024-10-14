@@ -66,6 +66,6 @@ class Board:
             if self._board_state[i] == self._board_state[j] == self._board_state[k]:
                 return self._board_state[i]
             
-        if all(cell != '' for cell in self._board_state):
+        if all(field != '' for field in self._board_state):
             return 'tie'
         

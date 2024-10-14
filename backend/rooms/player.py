@@ -17,21 +17,19 @@ class Player:
         self, 
         session_id: str,
         symbol: str, 
-        is_current_player: bool, 
-        wants_to_play_again: Union[None, bool]
+        wants_to_play_again: Union[None, bool] = None
         ) -> None:
         """    
         Args: 
             session_id (str): A session id of the player
             symbol (str): A symbol of the player. Should be `O` or `X`
-            is_current_player (bool): Whether the player is able to make a move now
             wants_to_play_again (None | bool): 
                 Whether the player wants to play again or not,
-                or is the decision unmade
+                or is the decision unmade. None by default
         """
-        self.session_id = session_id
+        self.session_id = session_id       
         self.symbol = symbol
-        self.is_current_player = is_current_player
+        self.determine_turn_at_the_start()
         self.wants_to_play_again = wants_to_play_again
         
     def __eq__(self, other: object) -> bool:
@@ -83,11 +81,11 @@ class Player:
             'wantsToPlayAgain': self.wants_to_play_again,
         }
 
-    def determine_turn_at_the_start(self) -> None:
+    def determine_turn_at_the_start(self) -> bool:
         """
         Sets the `is_current_player` depending on the `symbol` property.
         True if `O`, false otherwise 
         """
         self.is_current_player = self.symbol == 'O'
         
-    
+        return self.is_current_player
