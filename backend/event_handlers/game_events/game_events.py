@@ -1,10 +1,10 @@
 from flask import request
-from flask_socketio import emit
+from flask_socketio import SocketIO, emit 
 
 from event_handlers.shared import rooms
 
 class GameEvents:
-    def __init__(self, socketio) -> None:
+    def __init__(self, socketio: SocketIO) -> None:
         self.socketio = socketio
         self.register_events()
         
