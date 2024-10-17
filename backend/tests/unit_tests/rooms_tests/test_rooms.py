@@ -1,6 +1,5 @@
 import pytest
 
-from rooms import *
 from errors import *
 
 from .fixtures import rooms

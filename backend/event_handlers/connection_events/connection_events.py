@@ -2,8 +2,9 @@ from flask import request
 from flask_socketio import SocketIO, emit
 
 from event_handlers.shared import rooms
+from ..event_handler import EventHandler
 
-class ConnectionEvents:
+class ConnectionEvents(EventHandler):
     def __init__(self, socketio: SocketIO) -> None:
         self.socketio = socketio
         self.register_events()

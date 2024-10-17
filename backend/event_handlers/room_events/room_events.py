@@ -3,8 +3,9 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 
 from rooms import Room
 from event_handlers.shared import rooms
+from ..event_handler import EventHandler
 
-class RoomEvents:
+class RoomEvents(EventHandler):
     def __init__(self, socketio: SocketIO) -> None:
         self.socketio = socketio
         self.register_events()
