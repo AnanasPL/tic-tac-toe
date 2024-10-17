@@ -1,11 +1,11 @@
 import pytest
 
-from rooms import GameState 
+from rooms.gamestate import GameState
 from errors import *
 
 from .fixtures import gs
 
-class TestUpdateBoardState:
+class TestUpdateState:
     def test_update_board_state_game_not_started(self):
         gs = GameState()
         gs.add_player('XXX')

@@ -1,7 +1,7 @@
 import pytest
 
-from errors import PlayerNotFoundError
-from rooms import GameState
+from rooms.gamestate import GameState
+from errors import *
 
 class TestGetPlayerFromTheGameState:
     def test_getting_player_by_session_id(self):

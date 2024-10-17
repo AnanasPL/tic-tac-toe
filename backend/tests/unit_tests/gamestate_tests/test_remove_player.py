@@ -1,7 +1,7 @@
 import pytest
 
+from rooms.gamestate import GameState
 from errors import *
-from rooms import GameState
 
 class TestRemovePlayer:
     def test_remove_player(self):

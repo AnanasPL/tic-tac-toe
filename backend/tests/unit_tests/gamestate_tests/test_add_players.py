@@ -1,6 +1,6 @@
 import pytest
 
-from rooms import Player, GameState
+from rooms.gamestate import GameState
 from errors import *
 
 class TestAddPlayerToTheGameState:

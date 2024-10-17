@@ -1,6 +1,6 @@
 import pytest
 
-from rooms import Player
+from rooms.player import Player
 
 
 class TestPlayer:

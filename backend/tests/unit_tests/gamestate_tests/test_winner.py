@@ -1,10 +1,9 @@
 import pytest
 
 from errors import *
-from rooms import GameState
+
 from .fixtures import gs
 
-# NOTE: More thorough tests of win combinations can be found in board_tests/test_win.py
 
 class TestWinner:
     def test_get_winner_when_there_is_no_yet(self, gs):

@@ -12,3 +12,6 @@ class RoomAlreadyFullError(Exception):
     
 class GameHasNotStartedError(Exception):
     """Raised when the game is not started yet"""
+    
+class GameAlreadyFinishedError(Exception):
+    """Raised when the game is already completed"""

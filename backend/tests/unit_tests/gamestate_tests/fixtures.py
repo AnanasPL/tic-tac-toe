@@ -1,6 +1,6 @@
 import pytest
 
-from rooms import GameState
+from rooms.gamestate import GameState
 
 
 @pytest.fixture

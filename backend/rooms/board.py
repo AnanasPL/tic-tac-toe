@@ -1,5 +1,5 @@
 from typing import Union
-from errors import FieldAlreadyTakenError
+from errors import FieldAlreadyTakenError, GameAlreadyFinishedError
 
 
 class Board:
@@ -7,10 +7,12 @@ class Board:
     
     def __init__(self) -> None:
         self._board_state: list[str] = ['' for _ in range(9)]
+        self._winner = None 
     
     def clear(self) -> None:
         """Resets the board state to the starting one (an array containing 9 empty strings)"""
         self._board_state = ['' for _ in range(9)]
+        self._winner = None
 
     def update(self, index: int, symbol: str) -> None:
         """Updates the current board state
@@ -34,6 +36,8 @@ class Board:
             raise IndexError(f"Index must be an integer in range 0-8")
         if self._board_state[index] != '':
             raise FieldAlreadyTakenError(f"The field with the index {index} is already taken")
+        if self._winner:
+            raise GameAlreadyFinishedError("The game is already finished!")
         
         self._board_state[index] = symbol
         
@@ -64,8 +68,9 @@ class Board:
                 continue
             
             if self._board_state[i] == self._board_state[j] == self._board_state[k]:
-                return self._board_state[i]
+                self._winner = self._board_state[i]
+                return self._winner
             
         if all(field != '' for field in self._board_state):
-            return 'tie'
-        
+            self._winner = 'tie'
+            return self._winner

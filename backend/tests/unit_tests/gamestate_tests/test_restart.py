@@ -1,6 +1,7 @@
 import pytest
 
 from errors import *
+
 from .fixtures import gs
 
 # Some changes to the initial state
