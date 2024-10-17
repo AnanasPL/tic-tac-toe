@@ -2,7 +2,7 @@ from string import ascii_letters, digits
 from random import choice
 from typing import Union
 
-from errors import PlayerNotFoundError
+from errors import PlayerNotFoundError, RoomNotFoundError
 from .gamestate import GameState
 from .player import Player
 
@@ -66,6 +66,9 @@ class Room:
         
         Args:
             session_id (str): The session id of the player
+            
+        Raises:
+            PlayerNotFoundError: If the player is not in the room
         """
         
         self.game_state.remove_player(session_id)
@@ -93,7 +96,7 @@ class Rooms:
     """Managing Flask SocketIO rooms"""
     
     def __init__(self) -> None:
-        self._rooms: list[Room] = []
+        self._rooms: set[Room] = set()
     
     def add_rooms(self, *args: Room) -> None:
         """
@@ -111,17 +114,17 @@ class Rooms:
         Args:
             room (Room): Room class instance to add
         """
-        self._rooms.append(room)
+        self._rooms.add(room)
     
     def get_all_codes(self) -> tuple[str]:
         """Returns a tuple with all of the codes of every room in the rooms list"""
         
-        return (room.code for room in self._rooms)
+        return tuple(room.code for room in self._rooms)
     
     def get_all_players_session_ids(self) -> tuple[str]:
         """Returns a tuple with all the session ids of the users in the rooms"""
         
-        return (sid for room in self._rooms for sid in room.get_players_session_ids())
+        return tuple(sid for room in self._rooms for sid in room.get_players_session_ids())
     
     def remove_empty_rooms(self) -> None:
         """Removes all rooms with no players from the rooms list"""
@@ -158,15 +161,18 @@ class Rooms:
         
         return list(filter(lambda room: session_id in room.get_players_session_ids(), self._rooms))[0]
     
-    def get_room_by_code(self, code: int) -> Union[Room, None]:
-        """Returns the Room that has the given code. `None` if there is no such.
+    def get_room_by_code(self, code: int) -> Room:
+        """Returns the Room that has the given code
 
         Args:
             code (int): code of the room
+            
+        Raises:
+            RoomNotFoundError: When there is no room with such code
         """
         
         if code not in self.get_all_codes():
-            return None
+            raise RoomNotFoundError(f"There is no room with the code '{code}'")
         
         return list(filter(lambda room: room.code == code, self._rooms))[0]
 
@@ -174,8 +180,8 @@ class Rooms:
         """Returns basic information about every room
 
         Returns:
-            tuple[tuple[str, int]]: 
+            (tuple[tuple[str, int]]): 
                 A tuple of 2-element tuples, made of string,
                 representing a room code and its size 
         """
-        return ((room.code, room.get_size()) for room in self._rooms)
+        return tuple((room.code, room.get_size()) for room in self._rooms)

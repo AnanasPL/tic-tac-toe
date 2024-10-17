@@ -10,6 +10,9 @@ class TurnError(Exception):
 class RoomAlreadyFullError(Exception):
     """Raised when the room is already full"""
     
+class RoomNotFoundError(Exception):
+    """Raised when there is no room with such code"""
+    
 class GameHasNotStartedError(Exception):
     """Raised when the game is not started yet"""
     

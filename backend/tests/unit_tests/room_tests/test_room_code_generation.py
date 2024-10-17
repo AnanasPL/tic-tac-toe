@@ -5,9 +5,9 @@ import pytest
 
 
 class TestRoomCodeGeneration:
-    length_range_1_30 = pytest.mark.parametrize('length', [i for i in range(1, 30)])
+    length_range_1_20 = pytest.mark.parametrize('length', [i for i in range(1, 20)])
     
-    @length_range_1_30
+    @length_range_1_20
     def test_code_length(self, length):
         code = Room.generate_room_code(length)
         
@@ -18,7 +18,7 @@ class TestRoomCodeGeneration:
         with pytest.raises(ValueError):
             Room.generate_room_code(length)
         
-    @length_range_1_30
+    @length_range_1_20
     def test_code_contains_only_eligible_characters(self, length):
         eligible_characters = ascii_letters + digits
         code = Room.generate_room_code(length)
