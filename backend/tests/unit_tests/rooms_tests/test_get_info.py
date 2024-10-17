@@ -5,12 +5,7 @@ from errors import *
 from .fixtures import rooms
 
 
-class TestRooms:
-    def test_add_rooms(self, rooms):
-        r, room, room2 = rooms
-        
-        assert room in r._rooms and room2 in r._rooms
-        
+class TestGetRoomsInfo:
     def test_get_room_codes(self, rooms):
         r, room, room2 = rooms
         
@@ -24,15 +19,6 @@ class TestRooms:
         
         assert all(sid in ('XXX', 'YYY') for sid in r.get_all_players_session_ids())
         
-    def test_remove_empty_rooms(self, rooms):
-        r, room, room2 = rooms
-        
-        room.add_player('XXX')
-        
-        r.remove_empty_rooms()
-        
-        assert room2 not in r._rooms
-        
     def test_get_first_available_room(self, rooms):
         r, room, room2 = rooms
         
@@ -42,7 +28,7 @@ class TestRooms:
         
         assert r.get_first_available_room() is room2
         
-    def test_get_first_available_room_when_there_is_not_one(self, rooms):
+    def test_get_first_available_room_when_there_is_not_any(self, rooms):
         r, room, room2 = rooms
         
         room.add_player('XXX')
@@ -98,4 +84,4 @@ class TestRooms:
         room.add_player('YYY')
         room2.add_player('ZZZ')
         
-        assert r.get_rooms_info() == ((room.code, 2), (room2.code, 1))
+        assert sorted(r.get_rooms_info()) == sorted(((room.code, 2), (room2.code, 1)))
