@@ -128,7 +128,7 @@ class Rooms:
     
     def remove_empty_rooms(self) -> None:
         """Removes all rooms with no players from the rooms list"""
-        self._rooms = tuple(filter(lambda room: room.get_size() != 0, self._rooms))
+        self._rooms = set(filter(lambda room: room.get_size() != 0, self._rooms))
 
     def get_first_available_room(self) -> Union[Room, None]:
         """Returns first non-full room, or None if there is no such."""

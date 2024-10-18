@@ -7,5 +7,6 @@ __all__ = [
     'RoomAlreadyFullError',
     'RoomNotFoundError',
     'GameHasNotStartedError',
-    'GameAlreadyFinishedError'
+    'GameAlreadyFinishedError',
+    'HandlerAlreadyExistsError'
     ]

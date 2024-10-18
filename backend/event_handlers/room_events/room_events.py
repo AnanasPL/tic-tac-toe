@@ -5,11 +5,7 @@ from rooms import Room
 from event_handlers.shared import rooms
 from ..event_handler import EventHandler
 
-class RoomEvents(EventHandler):
-    def __init__(self, socketio: SocketIO) -> None:
-        self.socketio = socketio
-        self.register_events()
-        
+class RoomEvents(EventHandler):        
     def register_events(self) -> None:
         @self.socketio.on('get-rooms')
         def get_rooms():
@@ -43,10 +39,10 @@ class RoomEvents(EventHandler):
             join_room(code)
             room = rooms.get_room_by_code(code)
             
-            player_state = room.add_player(request.sid)
+            player = room.add_player(request.sid)
             
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
-            emit('player-info', player_state)
+            emit('player-info', player.get_state())
 
             if room.get_size() == 2:
                 emit('game-started', to=code)

@@ -1,14 +1,13 @@
 from flask import request
 from flask_socketio import SocketIO, emit 
 
+from rooms.player import Player
+
 from event_handlers.shared import rooms
 from ..event_handler import EventHandler
+from errors import *
 
-class GameEvents(EventHandler):
-    def __init__(self, socketio: SocketIO) -> None:
-        self.socketio = socketio
-        self.register_events()
-        
+class GameEvents(EventHandler):        
     def register_events(self) -> None:
         @self.socketio.on('board-update')
         def board_update(data):
@@ -17,10 +16,12 @@ class GameEvents(EventHandler):
             error_message = ''
             try:
                 room.game_state.update_board_state(data['changedCell']['index'], request.sid)
-            except PermissionError as e:
+            except TurnError:
                 error_message = "Poczekaj na swoją kolej"
-            except ValueError:
+            except FieldAlreadyTakenError:
                 error_message = "Pole niedostępne"
+            except GameHasNotStartedError:
+                error_message = "Gra się jeszcze nie rozpoczełą"
             finally:
                 if error_message:
                     emit('board-update-error', {'message': error_message})
@@ -31,6 +32,9 @@ class GameEvents(EventHandler):
             winner = room.game_state.get_winner()
             
             if winner is not None:
+                if isinstance(winner, Player):
+                    winner = winner.symbol
+                
                 emit('game-ended', {'winner': winner}, to=room.code)
                
         @self.socketio.on('restart-request')

@@ -18,3 +18,6 @@ class GameHasNotStartedError(Exception):
     
 class GameAlreadyFinishedError(Exception):
     """Raised when the game is already completed"""
+    
+class HandlerAlreadyExistsError(Exception):
+    """Raised on attempt to create another instance of an event handler"""
