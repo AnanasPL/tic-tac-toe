@@ -17,6 +17,12 @@ class RoomEvents(EventHandler):
             
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             
+        @self.socketio.on('check-if-room-exists')
+        def check_if_room_exists(data):
+            code = data['code']
+            
+            emit('check-if-room-exists-response', {'exists': code in rooms.get_all_codes()})
+        
         @self.socketio.on('create-room')
         def create_room_():
             room = Room()
@@ -25,12 +31,6 @@ class RoomEvents(EventHandler):
             
             emit('room-created-successfully', {'code': room.code})
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
-
-        @self.socketio.on('check-if-room-exists')
-        def check_for_room(data):
-            code = data['code']
-            
-            emit('check-if-room-exists-response', {'exists': code in rooms.get_all_codes()})
 
         @self.socketio.on('join-room')
         def join_room_(data):
