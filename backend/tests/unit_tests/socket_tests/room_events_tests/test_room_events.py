@@ -1,6 +1,6 @@
 import pytest 
 
-from ..test_client import client
+from ..client import client
 
 
 def check_response(events: object, length: int, index: int, name: str, argname: str, type_: object):

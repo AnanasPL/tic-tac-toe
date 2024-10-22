@@ -1,6 +1,6 @@
 import pytest 
 
-from ..test_client import client
+from ..client import client
 
 class TestConnection:
     def test_connect(self, client):
