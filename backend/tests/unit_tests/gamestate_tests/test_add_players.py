@@ -15,7 +15,7 @@ class TestAddPlayerToTheGameState:
         gs.add_player('XXX')
         gs.add_player('XXX')
         
-        assert len(gs.players) == 1
+        assert len(gs.players) == 2
         
     def test_add_player_to_a_full_game(self):
         gs = GameState()

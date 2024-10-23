@@ -1,4 +1,6 @@
 from abc import ABC, ABCMeta, abstractmethod
+from flask_socketio import SocketIO
+
 from errors import HandlerAlreadyExistsError
 
 
@@ -14,7 +16,7 @@ class EventHandlerMeta(ABCMeta):
         raise HandlerAlreadyExistsError(f"{cls.__name__} already exists")
 
 class EventHandler(ABC, metaclass=EventHandlerMeta):
-    def __init__(self, socketio):
+    def __init__(self, socketio: SocketIO):
         self.socketio = socketio
         self.register_events()
 

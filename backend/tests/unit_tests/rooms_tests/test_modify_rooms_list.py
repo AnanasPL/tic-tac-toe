@@ -2,7 +2,7 @@ import pytest
 
 from errors import *
 
-from .fixtures import rooms
+from ...fixtures import rooms
 
 class TestModifyRoomsList:
     def test_add_rooms(self, rooms):

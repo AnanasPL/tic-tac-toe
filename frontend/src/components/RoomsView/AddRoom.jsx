@@ -8,7 +8,7 @@ const AddRoom = () => {
 	
 	useEffect(() => {
 		addMessageListener("room-created-successfully", ({ code }) => {
-			navigate(`/room/${code}`)
+			navigate(`/room/${code}`) //TODO: Full rooms
 		}, true);
 	}, []); 
 

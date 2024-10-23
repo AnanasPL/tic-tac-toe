@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, SocketIOTestClient
 from event_handlers import initialize_all_handlers
 
 from dotenv import load_dotenv
@@ -13,6 +13,8 @@ app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 socketio = SocketIO(app, cors_allowed_origins='*')
 
 initialize_all_handlers(socketio)
+
+# TODO: add enum for symbols
 
 if __name__ == "__main__":
     socketio.run(app, port=5000, debug=True)

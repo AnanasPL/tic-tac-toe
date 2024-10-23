@@ -2,7 +2,7 @@ import pytest
 
 from errors import *
 
-from .fixtures import gs
+from ...fixtures import gs
 
 class TestPlayAgain:
     def test_wants_to_play_again(self, gs):

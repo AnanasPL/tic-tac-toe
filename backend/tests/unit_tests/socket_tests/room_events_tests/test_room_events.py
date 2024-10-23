@@ -1,6 +1,6 @@
 import pytest 
 
-from ..client import client
+from ....fixtures.client import client_maker
 
 
 def check_response(events: object, length: int, index: int, name: str, argname: str, type_: object):
@@ -10,28 +10,35 @@ def check_response(events: object, length: int, index: int, name: str, argname: 
 
 
 class TestRoomEvents:
-    def test_get_rooms(self, client):
+    def test_get_rooms(self, client_maker):
+        client = client_maker()
+        
         client.emit('get-rooms')
         events = client.get_received()
         
         check_response(events, 2, 1, 'rooms-update', 'rooms', list)
         
-    def test_remove_empty_rooms(self, client):
+    def test_remove_empty_rooms(self, client_maker):
+        client = client_maker()
+        
         client.emit('remove-empty-rooms')
         events = client.get_received()
         
         check_response(events, 2, 1, 'rooms-update', 'rooms', list)
     
-    def test_check_if_room_exists(self, client):
+    def test_check_if_room_exists(self, client_maker):
+        client = client_maker()
+        
         client.emit('check-if-room-exists', {'code': 'XXXXXX'})
         events = client.get_received()
         
         check_response(events, 2, 1, 'check-if-room-exists-response', 'exists', bool)
 
-    def test_create_room(self, client):
+    def test_create_room(self, client_maker):
+        client = client_maker()
+        
         client.emit('create-room')
         events = client.get_received()
         
         check_response(events, 3, 1, 'room-created-successfully', 'code', str)
         check_response(events, 3, 2, 'rooms-update', 'rooms', list)
-

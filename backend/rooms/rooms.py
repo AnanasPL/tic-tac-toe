@@ -96,7 +96,7 @@ class Rooms:
     """Managing Flask SocketIO rooms"""
     
     def __init__(self) -> None:
-        self._rooms: set[Room] = set()
+        self._rooms: list[Room] = []
     
     def add_rooms(self, *args: Room) -> None:
         """
@@ -114,7 +114,7 @@ class Rooms:
         Args:
             room (Room): Room class instance to add
         """
-        self._rooms.add(room)
+        self._rooms.append(room)
     
     def get_all_codes(self) -> tuple[str]:
         """Returns a tuple with all of the codes of every room in the rooms list"""
@@ -128,7 +128,7 @@ class Rooms:
     
     def remove_empty_rooms(self) -> None:
         """Removes all rooms with no players from the rooms list"""
-        self._rooms = set(filter(lambda room: room.get_size() != 0, self._rooms))
+        self._rooms = list(filter(lambda room: room.get_size() != 0, self._rooms))
 
     def get_first_available_room(self) -> Union[Room, None]:
         """Returns first non-full room, or None if there is no such."""

@@ -1,9 +1,11 @@
 from flask import request
-from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask_socketio import emit, join_room, leave_room
 
 from rooms import Room
 from event_handlers.shared import rooms
 from ..event_handler import EventHandler
+
+from errors import *
 
 class RoomEvents(EventHandler):        
     def register_events(self) -> None:
@@ -36,26 +38,24 @@ class RoomEvents(EventHandler):
         def join_room_(data):
             code = data['code']
             
-            join_room(code)
             room = rooms.get_room_by_code(code)
             
-            player = room.add_player(request.sid)
-            
+            try:
+                player = room.add_player(request.sid)
+                join_room(code)
+            except RoomAlreadyFullError:
+                emit('room-already-full')
+                return
+                
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('player-info', player.get_state())
-
-            if room.get_size() == 2:
-                emit('game-started', to=code)
 
         @self.socketio.on('leave-room')
         def leave_room_(data):
             code = data['code']
             
-            if code not in rooms.get_all_codes():
-                emit('leave-room-error', {'code': code})
-                return
-            
             leave_room(code)
             room = rooms.get_room_by_code(code)
             room.remove_player(request.sid)
+            
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)

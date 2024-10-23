@@ -1,5 +1,5 @@
 from flask import request
-from flask_socketio import SocketIO, emit 
+from flask_socketio import emit 
 
 from rooms.player import Player
 
@@ -11,26 +11,29 @@ class GameEvents(EventHandler):
     def register_events(self) -> None:
         @self.socketio.on('board-update')
         def board_update(data):
+            #TODO: go from sending dicts to sending single args. will be easier
             room = rooms.get_player_room(request.sid)
             
             error_message = ''
             try:
                 room.game_state.update_board_state(data['changedCell']['index'], request.sid)
-            except TurnError:
-                error_message = "Poczekaj na swoją kolej"
-            except FieldAlreadyTakenError:
-                error_message = "Pole niedostępne"
             except GameHasNotStartedError:
-                error_message = "Gra się jeszcze nie rozpoczełą"
+                error_message = "The game has not started yet"
+            except TurnError:
+                error_message = "Wait for your turn"
+            except FieldAlreadyTakenError:
+                error_message = "This field is already taken"
             finally:
                 if error_message:
                     emit('board-update-error', {'message': error_message})
                     return
-            
+            #TODO: fix update sending, send entire board state instead of one cell
             emit('board-update', data, to=room.code)
             
             winner = room.game_state.get_winner()
             
+            # TODO: change the thing to send personalized event to each player
+            # instead of sending symbol as the client should not know its symbol
             if winner is not None:
                 if isinstance(winner, Player):
                     winner = winner.symbol
@@ -51,9 +54,8 @@ class GameEvents(EventHandler):
                 room.game_state.restart_game() 
                 
                 emit('player-info', room.game_state.get_player_info(request.sid))
-                emit('player-info', room.game_state.get_opposing_player_info(request.sid), to=room.code, include_self=False)
+                emit('player-info', room.game_state.get_opposing_player_info(request.sid), to=room.code, skip_sid=request.sid)
                 emit('board-clear', to=room.code)
                 emit('game-restarted', to=room.code)
-                
                 
                 #TODO: in board update, send back message if the move is invalid

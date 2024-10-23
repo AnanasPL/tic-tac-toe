@@ -9,12 +9,12 @@ class GameState:
     
     Attributes:
         board (Board): Current board state
-        players (set[Player]): List of players in the game
+        players (list[Player]): List of players in the game
     """
     
     def __init__(self) -> None:
         self.board = Board()
-        self.players: set[Player] = set()
+        self.players: list[Player] = []
                 
     def get_players_session_ids(self) -> tuple[str]:
         """Returns a tuple with all the session ids of the players in the game"""
@@ -62,7 +62,7 @@ class GameState:
         if len(self.players) >= 2:
             raise RoomAlreadyFullError("There can be at most 2 players in the room") # TODO: spectating
         
-        self.players.add(Player(
+        self.players.append(Player(
             player_sid, 
             'O' if len(self.players) == 0 else 'X',
         ))
@@ -79,7 +79,7 @@ class GameState:
             PlayerNotFoundError: If the player is not in the room
         """
         player = self.get_player_by_session_id(player_sid)
-        self.players.discard(player)
+        self.players.remove(player)
             
     def update_board_state(self, index: int, player_sid: str) -> None:
         """Updates the current board state.

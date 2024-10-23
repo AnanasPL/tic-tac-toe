@@ -2,7 +2,7 @@ import pytest
 
 from errors import *
 
-from .fixtures import gs
+from ...fixtures import gs
 
 
 class TestWinner:

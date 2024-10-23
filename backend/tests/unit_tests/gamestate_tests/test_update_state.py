@@ -3,7 +3,7 @@ import pytest
 from rooms.gamestate import GameState
 from errors import *
 
-from .fixtures import gs
+from ...fixtures import gs
 
 class TestUpdateState:
     def test_update_board_state_game_not_started(self):
