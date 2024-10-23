@@ -8,15 +8,30 @@ from event_handlers.shared import rooms
 
 class TestPlayingTheGame(SocketSetupTeardown):
     def test_state_sent_correctly(self, client_maker):
-        code, (client) = set_up_the_room(client_maker)
+        code, client = set_up_the_room(client_maker)
         state = list(rooms.get_room_by_code(code).game_state.players)[0].get_state()
         
         assert client.get_received()[-1]['args'][0] == state
     
+    def test_update_board_correctly_first_player(self, client_maker):
+        code, client, _ = set_up_the_room(client_maker, 2)
+        
+        client.emit('board-update', {'changedCell': {'index': 0}})
+        
+        assert rooms.get_room_by_code(code).game_state.get_board_state()[0] == 'O'
+    
+    def test_update_board_correctly_second_player(self, client_maker):
+        code, client, client2 = set_up_the_room(client_maker, 2)
+        
+        client.emit('board-update', {'changedCell': {'index': 0}})
+        client2.emit('board-update', {'changedCell': {'index': 1}})
+        
+        assert rooms.get_room_by_code(code).game_state.get_board_state()[1] == 'X'    
+
     def test_update_board_game_not_started(self, client_maker):
         _, client = set_up_the_room(client_maker)
         
-        client.emit('board-update', {'changedCell': {'index': 0, 'symbol': 'O'}})
+        client.emit('board-update', {'changedCell': {'index': 0}})
         
         assert client.get_received()[-1]['args'][0]['message'] == "The game has not started yet"
         
