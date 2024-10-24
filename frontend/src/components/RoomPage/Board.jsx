@@ -1,36 +1,35 @@
-import React, { useEffect, useContext } from "react"
-import { useParams } from "react-router-dom"
+import React, { useEffect, useContext } from 'react';
 
-import { socketContext } from "../../contexts/socketContext"
+import { useParams } from 'react-router-dom';
 
-import useBoardState from "../../hooks/useBoardState";
+import socketContext from '../../contexts/socketContext';
 
-import Cell from "./Cell"
-import WinnerInfo from "./WinnerInfo";
+import useBoardState from '../../hooks/useBoardState';
+
+import Cell from './Cell';
+import WinnerInfo from './WinnerInfo';
 
 const Board = () => {
-    const { emit } = useContext(socketContext)
+  const { emit } = useContext(socketContext);
+  const boardState = useBoardState();
+  const { roomCode } = useParams();
 
-    const boardState = useBoardState();
+  useEffect(() => {
+    emit('join-room', roomCode);
 
-    const { roomCode } = useParams()
+    return () => emit('leave-room', roomCode);
+  }, []);
 
-    useEffect(() => {
-        emit('join-room', roomCode)
+  return (
+    <div className='board'>
+      {boardState.map((val, id) => 
+        <Cell 
+        value={val} 
+        onClick={() => emit('board-update', id)}
+        key={id}/>)}
+      <WinnerInfo />
+    </div>
+  );
+};
 
-        return () => emit('leave-room', roomCode)
-    }, [])
-    
-    return (
-        <div className="board">
-            {boardState.map((val, id) => 
-                <Cell 
-                value={val} 
-                onClick={() => emit('board-update', id)}
-                key={id}/>)}
-            <WinnerInfo />
-        </div>
-    )
-}
-
-export default Board
+export default Board;

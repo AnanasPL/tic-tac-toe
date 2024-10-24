@@ -1,33 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import { roomContext } from "../../contexts/roomContext";
-import { socketContext } from "../../contexts/socketContext";
+import socketContext from '../../contexts/socketContext';
 
-import Room from "./RoomInfo";
-import AddRoom from "./AddRoom";
+import Room from './RoomInfo';
+import AddRoom from './AddRoom';
 
 const Rooms = () => {
-    const [rooms, setRooms] = useState([])
-    const { emit, addMessageListener, removeMessageListener } = useContext(socketContext);
+  const [rooms, setRooms] = useState([]);
+  const { emit, addMessageListener, removeMessageListener } = useContext(socketContext);
 
-    useEffect(() => {
-        const roomsUpdateFn = ({ rooms }) => setRooms(rooms)
-        
-        addMessageListener('rooms-update', roomsUpdateFn)
+  useEffect(() => {
+    const roomsUpdateFn = ({ rooms }) => setRooms(rooms);
+    
+    addMessageListener('rooms-update', roomsUpdateFn);
 
-        emit('get-rooms')
+    emit('get-rooms');
 
-        return () => removeMessageListener('rooms-update', roomsUpdateFn)
-    }, [])
+    return () => removeMessageListener('rooms-update', roomsUpdateFn);
+  }, []);
 
-    return (
-        <div className="rooms-wrapper">
-            <roomContext.Provider value={[rooms, setRooms]}>
-                <AddRoom />
-                {rooms.map((info, id) => <Room code={info[0]} size={info[1]} key={id}/>)}
-            </roomContext.Provider>
-        </div>
-    )
-}
+  return (
+    <div className='rooms-wrapper'>
+      <AddRoom />
+      {rooms.map(([code, size], id) => <Room code={code} size={size} key={id}/>)}
+    </div>
+  );
+};
 
-export default Rooms
+export default Rooms;

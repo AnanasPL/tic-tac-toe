@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const Cell = ({ value, onClick }) => {
-    return (
-        <div className='cell' onClick={onClick}>
-            {value}
-        </div>
-    )
-}
+  return (
+    <div className='cell' onClick={onClick}>
+      {value}
+    </div>
+  );
+};
 
-export default React.memo(Cell)
+export default React.memo(Cell);

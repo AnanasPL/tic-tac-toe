@@ -13,8 +13,10 @@ class ConnectionEvents(EventHandler):
 
         @self.socketio.on('disconnect')
         def disconnect():
-            room = rooms.get_player_room(request.sid)
+            try: 
+                room = rooms.get_player_room(request.sid)
+                room.remove_player(request.sid)
+            except PlayerNotFoundError:
+                ...
             
-            room.remove_player(request.sid)
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
-
