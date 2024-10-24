@@ -10,13 +10,13 @@ from errors import *
 class GameEvents(EventHandler):        
     def register_events(self) -> None:
         @self.socketio.on('board-update')
-        def board_update(data):
+        def board_update(index: int):
             #TODO: go from sending dicts to sending single args. will be easier
             room = rooms.get_player_room(request.sid)
             
             error_message = ''
             try:
-                room.game_state.update_board_state(data['changedCell']['index'], request.sid)
+                room.game_state.update_board_state(index, request.sid)
             except GameHasNotStartedError:
                 error_message = "The game has not started yet"
             except TurnError:
@@ -25,20 +25,22 @@ class GameEvents(EventHandler):
                 error_message = "This field is already taken"
             finally:
                 if error_message:
-                    emit('board-update-error', {'message': error_message})
+                    emit('board-update-error', error_message)
                     return
-            #TODO: fix update sending, send entire board state instead of one cell
-            emit('board-update', data, to=room.code)
+            # TODO: frontend fix
+            emit('board-update', room.game_state.get_board_state(), to=room.code)
             
             winner = room.game_state.get_winner()
             
             # TODO: change the thing to send personalized event to each player
             # instead of sending symbol as the client should not know its symbol
             if winner is not None:
-                if isinstance(winner, Player):
-                    winner = winner.symbol
-                
-                emit('game-ended', {'winner': winner}, to=room.code)
+                if not isinstance(winner, Player):
+                    emit('game-ended', {'winner': winner}, to=room.code)
+                    return
+                    
+                emit('game-ended', {'winner': True, 'symbol': winner.symbol} ,to=winner.session_id)
+                emit('game-ended', {'winner': False, 'symbol': winner.symbol} ,to=room.code, skip_sid=winner.session_id)
                
         @self.socketio.on('restart-request')
         def restart_request():
@@ -55,7 +57,7 @@ class GameEvents(EventHandler):
                 
                 emit('player-info', room.game_state.get_player_info(request.sid))
                 emit('player-info', room.game_state.get_opposing_player_info(request.sid), to=room.code, skip_sid=request.sid)
-                emit('board-clear', to=room.code)
+                emit('board-update', room.game_state.get_board_state(), to=room.code)
                 emit('game-restarted', to=room.code)
                 
                 #TODO: in board update, send back message if the move is invalid

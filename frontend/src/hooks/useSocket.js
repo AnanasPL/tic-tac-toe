@@ -6,7 +6,7 @@ const useSocket = () => {
   const listeners = useRef({})
 
   const emit = (message, data = null) => {
-    if (!data) {
+    if (data === null) {
       socketRef.current.emit(message)
       return
     }

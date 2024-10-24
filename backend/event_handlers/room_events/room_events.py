@@ -20,10 +20,8 @@ class RoomEvents(EventHandler):
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             
         @self.socketio.on('check-if-room-exists')
-        def check_if_room_exists(data):
-            code = data['code']
-            
-            emit('check-if-room-exists-response', {'exists': code in rooms.get_all_codes()})
+        def check_if_room_exists(code: int):            
+            emit('check-if-room-exists-response', code in rooms.get_all_codes())
         
         @self.socketio.on('create-room')
         def create_room_():
@@ -35,9 +33,7 @@ class RoomEvents(EventHandler):
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
 
         @self.socketio.on('join-room')
-        def join_room_(data):
-            code = data['code']
-            
+        def join_room_(code: int):
             room = rooms.get_room_by_code(code)
             
             try:
@@ -46,14 +42,14 @@ class RoomEvents(EventHandler):
             except RoomAlreadyFullError:
                 emit('room-already-full')
                 return
-                
+            # TODO: cache (rejoining room)
+            print(request.sid)
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('player-info', player.get_state())
+            emit('board-update', room.game_state.get_board_state())
 
         @self.socketio.on('leave-room')
-        def leave_room_(data):
-            code = data['code']
-            
+        def leave_room_(code: int):
             leave_room(code)
             room = rooms.get_room_by_code(code)
             room.remove_player(request.sid)
