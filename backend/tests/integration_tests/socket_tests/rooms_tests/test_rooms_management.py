@@ -22,7 +22,7 @@ class TestRooms(SocketSetupTeardown):
         
         code = client.get_received()[1]['args'][0]['code']
         
-        client.emit('join-room', {'code': code})
+        client.emit('join-room', code)
         print(rooms.get_all_players_session_ids())
         assert len(rooms.get_all_players_session_ids()) == 1
         
@@ -33,8 +33,8 @@ class TestRooms(SocketSetupTeardown):
         
         code = client.get_received()[1]['args'][0]['code']
         
-        client.emit('join-room', {'code': code})
-        client.emit('leave-room', {'code': code})
+        client.emit('join-room', code)
+        client.emit('leave-room', code)
         
         assert len(rooms.get_all_players_session_ids()) == 0
         
@@ -56,13 +56,13 @@ class TestRooms(SocketSetupTeardown):
     
         code = client.get_received()[1]['args'][0]['code']
         
-        client.emit('check-if-room-exists', {'code': code})
-        client.emit('check-if-room-exists', {'code': '-----'})
+        client.emit('check-if-room-exists', code)
+        client.emit('check-if-room-exists', '-----')
         
         events = client.get_received()
         
-        assert events[0]['args'][0]['exists']
-        assert not events[1]['args'][0]['exists']
+        assert events[0]['args'][0]
+        assert not events[1]['args'][0]
 
     def test_join_full_room(self, client_maker):
         client = client_maker()
@@ -73,9 +73,9 @@ class TestRooms(SocketSetupTeardown):
         
         code = client.get_received()[3]['args'][0]['code']
         
-        client.emit('join-room', {'code': code})
-        client2.emit('join-room', {'code': code})
-        client3.emit('join-room', {'code': code})
+        client.emit('join-room', code)
+        client2.emit('join-room', code)
+        client3.emit('join-room', code)
         
         assert rooms.all_rooms_full()
         assert len(rooms._rooms) == 1

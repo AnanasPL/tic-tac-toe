@@ -11,7 +11,7 @@ class TestPlayingTheGame(SocketSetupTeardown):
         code, client = set_up_the_room(client_maker)
         state = list(rooms.get_room_by_code(code).game_state.players)[0].get_state()
         
-        assert client.get_received()[-1]['args'][0] == state
+        assert client.get_received()[2]['args'][0] == state
     
     def test_update_board_correctly_first_player(self, client_maker):
         code, client, _ = set_up_the_room(client_maker, 2)
@@ -40,7 +40,7 @@ class TestPlayingTheGame(SocketSetupTeardown):
 
         client2.emit('board-update', 0)
         
-        assert client2.get_received()[3]['args'][0] == "Wait for your turn"
+        assert client2.get_received()[4]['args'][0] == "Wait for your turn"
 
     def test_update_board_state_field_already_taken(self, client_maker):
         _, client, client2 = set_up_the_room(client_maker, 2)
@@ -48,7 +48,7 @@ class TestPlayingTheGame(SocketSetupTeardown):
         client.emit('board-update', 0)
         client2.emit('board-update', 0)
         
-        assert client2.get_received()[4]['args'][0] == "This field is already taken"
+        assert client2.get_received()[5]['args'][0] == "This field is already taken"
 
     def test_game_end_tie(self, client_maker):
         _, client, client2 = set_up_the_room(client_maker, 2)
@@ -75,8 +75,13 @@ class TestPlayingTheGame(SocketSetupTeardown):
         client2.emit('board-update', 7)
         client.emit('board-update', 2)
         
-        assert client.get_received()[-1]['args'][0]['winner'] == 'O'
-        assert client2.get_received()[-1]['args'][0]['winner'] == 'O'
+        events = client.get_received()
+        events2 = client2.get_received()
+                
+        assert events[-1]['args'][0]['winner']
+        assert not events2[-1]['args'][0]['winner']
+        assert events[-1]['args'][0]['symbol'] == 'O'
+        assert events2[-1]['args'][0]['symbol'] == 'O'
         
     def test_game_end_winner_second_player(self, client_maker):
         _, client, client2 = set_up_the_room(client_maker, 2)
@@ -88,6 +93,11 @@ class TestPlayingTheGame(SocketSetupTeardown):
         client.emit('board-update', 3)
         client2.emit('board-update', 6)
         
-        assert client.get_received()[-1]['args'][0]['winner'] == 'X'
-        assert client2.get_received()[-1]['args'][0]['winner'] == 'X'
+        events = client.get_received()
+        events2 = client2.get_received()
+          
+        assert not events[-1]['args'][0]['winner']
+        assert events2[-1]['args'][0]['winner']
+        assert events[-1]['args'][0]['symbol'] == 'X'
+        assert events2[-1]['args'][0]['symbol'] == 'X'
         

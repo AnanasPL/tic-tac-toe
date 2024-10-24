@@ -43,7 +43,7 @@ class RoomEvents(EventHandler):
                 emit('room-already-full')
                 return
             # TODO: cache (rejoining room)
-            print(request.sid)
+            
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('player-info', player.get_state())
             emit('board-update', room.game_state.get_board_state())

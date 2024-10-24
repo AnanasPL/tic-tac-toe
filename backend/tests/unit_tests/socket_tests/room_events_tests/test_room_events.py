@@ -1,12 +1,18 @@
 import pytest 
 
+from typing import Union
+
 from ....fixtures.client import client_maker
 
 
-def check_response(events: object, length: int, index: int, name: str, argname: str, type_: object):
+def check_response(events: object, length: int, index: int, name: str, argname: Union[str, None], type_: object):
     assert len(events) == length
     assert events[index]['name'] == name
-    assert isinstance(events[index]['args'][0][argname], type_)
+    
+    if argname is None:
+        assert isinstance(events[index]['args'][0], type_)
+    else:
+        assert isinstance(events[index]['args'][0][argname], type_)
 
 
 class TestRoomEvents:
@@ -29,10 +35,10 @@ class TestRoomEvents:
     def test_check_if_room_exists(self, client_maker):
         client = client_maker()
         
-        client.emit('check-if-room-exists', {'code': 'XXXXXX'})
+        client.emit('check-if-room-exists', 'XXXXXX')
         events = client.get_received()
         
-        check_response(events, 2, 1, 'check-if-room-exists-response', 'exists', bool)
+        check_response(events, 2, 1, 'check-if-room-exists-response', None, bool)
 
     def test_create_room(self, client_maker):
         client = client_maker()
