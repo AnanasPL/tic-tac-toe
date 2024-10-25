@@ -29,7 +29,7 @@ class RoomEvents(EventHandler):
             
             rooms.add_rooms(room)
             
-            emit('room-created-successfully', {'code': room.code})
+            emit('room-created-successfully', room.code)
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
 
         @self.socketio.on('join-room')

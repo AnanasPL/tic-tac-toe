@@ -11,7 +11,7 @@ class TestRooms(SocketSetupTeardown):
         
         client.emit('create-room')
         
-        code = client.get_received()[1]['args'][0]['code']
+        code = client.get_received()[1]['args'][0]
         
         assert rooms.get_room_by_code(code)
         
@@ -20,7 +20,7 @@ class TestRooms(SocketSetupTeardown):
         
         client.emit('create-room')
         
-        code = client.get_received()[1]['args'][0]['code']
+        code = client.get_received()[1]['args'][0]
         
         client.emit('join-room', code)
         print(rooms.get_all_players_session_ids())
@@ -31,7 +31,7 @@ class TestRooms(SocketSetupTeardown):
         
         client.emit('create-room')
         
-        code = client.get_received()[1]['args'][0]['code']
+        code = client.get_received()[1]['args'][0]
         
         client.emit('join-room', code)
         client.emit('leave-room', code)
@@ -54,7 +54,7 @@ class TestRooms(SocketSetupTeardown):
         
         client.emit('create-room')
     
-        code = client.get_received()[1]['args'][0]['code']
+        code = client.get_received()[1]['args'][0]
         
         client.emit('check-if-room-exists', code)
         client.emit('check-if-room-exists', '-----')
@@ -71,7 +71,7 @@ class TestRooms(SocketSetupTeardown):
         
         client.emit('create-room')
         
-        code = client.get_received()[3]['args'][0]['code']
+        code = client.get_received()[3]['args'][0]
         
         client.emit('join-room', code)
         client2.emit('join-room', code)

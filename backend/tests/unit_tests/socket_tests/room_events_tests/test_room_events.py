@@ -46,5 +46,5 @@ class TestRoomEvents:
         client.emit('create-room')
         events = client.get_received()
         
-        check_response(events, 3, 1, 'room-created-successfully', 'code', str)
+        check_response(events, 3, 1, 'room-created-successfully', None, str)
         check_response(events, 3, 2, 'rooms-update', 'rooms', list)

@@ -5,22 +5,24 @@ import { useNavigate } from 'react-router-dom';
 import socketContext from '../../contexts/socketContext';
 
 const AddRoom = () => {
-	const { emit, addMessageListener } = useContext(socketContext);
+	const { emit, addMessageListener, removeMessageListener } = useContext(socketContext);
 	const navigate = useNavigate();
 	
 	useEffect(() => {
-		addMessageListener('room-created-successfully', ({ code }) => {
-			navigate(`/room/${code}`); //TODO: Full rooms
-		}, true);
+		const roomCreatedSuccessfullyFn = (code) => navigate(`/room/${code}`) //TODO: Full rooms
+
+		addMessageListener('room-created-successfully', roomCreatedSuccessfullyFn, true);
+
+		return () => removeMessageListener('room-created-successfully', roomCreatedSuccessfullyFn);
 	}, []); 
 
 	return (
 		<div className='addRoom'>
-			<button id='roomCreation' onClick={() => emit('create-room')}>
+			<button id='roomCreation' onClick={() => {
+				emit('remove-empty-rooms');
+				emit('create-room');
+				}}>
 				Create New Room
-			</button>
-			<button onClick={() => emit('remove-empty-rooms')}>
-				Clear rooms
 			</button>
 		</div>
 	);
