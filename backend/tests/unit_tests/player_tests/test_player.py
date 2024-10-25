@@ -50,7 +50,7 @@ class TestPlayer:
         ('X', False, True)
     ])
     def test_get_player_state_returns_correct_state(self, symbol, is_current_player, wants_to_play_again):
-        player = Player('XXX', symbol, wants_to_play_again)
+        player = Player('XXX', symbol, wants_to_play_again=wants_to_play_again)
         
         assert player.get_state() == {
             'symbol': symbol,

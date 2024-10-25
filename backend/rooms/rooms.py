@@ -82,13 +82,10 @@ class Room:
         return len(self.game_state.players)
     
     def is_player_in_the_room(self, session_id: str) -> bool:
-        """Returns whether the player with the given session id is found in the room or not
+        """Checks whether the player with the given session id is found in the room or not
 
         Args:
             session_id (str): The session id of the player
-
-        Returns:
-            bool: `True` if the player is in the room. `False` if not
         """
         return session_id in self.get_players_session_ids()
 

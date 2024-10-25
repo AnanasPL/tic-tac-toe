@@ -10,7 +10,7 @@ class TestUpdateState:
         gs = GameState()
         gs.add_player('XXX')
         
-        with pytest.raises(GameHasNotStartedError):
+        with pytest.raises(NotEnoughPlayersError):
             gs.update_board_state(0, 'XXX')    
     
     @pytest.mark.parametrize('index', [-1, 9])

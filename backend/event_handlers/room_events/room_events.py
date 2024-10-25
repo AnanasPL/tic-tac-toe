@@ -37,7 +37,7 @@ class RoomEvents(EventHandler):
             room = rooms.get_room_by_code(code)
             
             try:
-                player = room.add_player(request.sid)
+                room.add_player(request.sid)
                 join_room(code)
             except RoomAlreadyFullError:
                 emit('room-already-full')

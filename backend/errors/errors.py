@@ -13,8 +13,8 @@ class RoomAlreadyFullError(Exception):
 class RoomNotFoundError(Exception):
     """Raised when there is no room with such code"""
     
-class GameHasNotStartedError(Exception):
-    """Raised when the game is not started yet"""
+class NotEnoughPlayersError(Exception):
+    """Raised when there is not enough players for game to proceed"""
     
 class GameAlreadyFinishedError(Exception):
     """Raised when the game is already completed"""

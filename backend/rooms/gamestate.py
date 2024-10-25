@@ -59,14 +59,15 @@ class GameState:
         Raises:
             RoomAlreadyFullError: If the room is already full
         """
-        if len(self.players) >= 2:
+        if len(self.players) == 2:
             raise RoomAlreadyFullError("There can be at most 2 players in the room") # TODO: spectating
-        
+
         self.players.append(Player(
             player_sid, 
-            'O' if len(self.players) == 0 else 'X',
+            'O' if len(self.players) == 0 else 'X' if self.players[0].symbol == 'O' else 'O',
+            True if len (self.players) == 0 else False if self.players[0].is_current_player else True
         ))
-                
+        
         return self.get_player_by_session_id(player_sid)
         
     def remove_player(self, player_sid: str) -> None:
@@ -89,14 +90,14 @@ class GameState:
             player_sid (str): Session id of the player that made a move
 
         Raises:
-            GameHasNotStartedError: If there is only one player in the room
+            NotEnoughPlayersError: If there is only one player in the room
             PlayerNotFoundError: If the player is not in the room
             TurnError: If its not the turn of the player
             IndexError: If the index is out of range 0-8
             FieldAlreadyTakenError: If the field is already taken
         """
         if len(self.players) != 2:
-            raise GameHasNotStartedError(f"The game has not started yet - there is only one player in the room")
+            raise NotEnoughPlayersError(f"The game has not started yet - there is only one player in the room")
         
         player = self.get_player_by_session_id(player_sid)
         
@@ -215,7 +216,7 @@ class GameState:
           
         for player in self.players:
             player.reverse_symbol()
-            player.determine_turn_at_the_start()
+            player.is_current_player = player.symbol == 'O'
             player.wants_to_play_again = None
 
     def get_board_state(self) -> list:

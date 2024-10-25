@@ -17,6 +17,7 @@ class Player:
         self, 
         session_id: str,
         symbol: str, 
+        is_current_player: Union[None, bool] = None,
         wants_to_play_again: Union[None, bool] = None
         ) -> None:
         """    
@@ -29,9 +30,9 @@ class Player:
         """
         self.session_id = session_id       
         self.symbol = symbol
-        self.determine_turn_at_the_start()
+        self.is_current_player = self.symbol == 'O' if is_current_player is None else is_current_player
         self.wants_to_play_again = wants_to_play_again
-        
+
     def __eq__(self, other: object) -> bool:
         """
         Returns `True` if the session_id of the other player is equal, 
@@ -80,12 +81,3 @@ class Player:
             'isCurrentPlayer': self.is_current_player,
             'wantsToPlayAgain': self.wants_to_play_again,
         }
-
-    def determine_turn_at_the_start(self) -> bool:
-        """
-        Sets the `is_current_player` depending on the `symbol` property.
-        True if `O`, false otherwise 
-        """
-        self.is_current_player = self.symbol == 'O'
-        
-        return self.is_current_player

@@ -17,8 +17,8 @@ class GameEvents(EventHandler):
             error_message = ''
             try:
                 room.game_state.update_board_state(index, request.sid)
-            except GameHasNotStartedError:
-                error_message = "The game has not started yet"
+            except NotEnoughPlayersError:
+                error_message = "Wait for the other player"
             except TurnError:
                 error_message = "Wait for your turn"
             except FieldAlreadyTakenError:

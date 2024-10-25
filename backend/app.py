@@ -15,6 +15,7 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 initialize_all_handlers(socketio)
 
 # TODO: add enum for symbols
+# TODO: names? authentication via them
 
 if __name__ == "__main__":
     socketio.run(app, port=5000, debug=True)

@@ -6,7 +6,7 @@ __all__ = [
     'TurnError',
     'RoomAlreadyFullError',
     'RoomNotFoundError',
-    'GameHasNotStartedError',
+    'NotEnoughPlayersError',
     'GameAlreadyFinishedError',
     'HandlerAlreadyExistsError'
     ]

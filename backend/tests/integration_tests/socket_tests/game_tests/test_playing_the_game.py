@@ -27,7 +27,7 @@ class TestPlayingTheGame(SocketSetupTeardown):
         
         client.emit('board-update', 0)
         
-        assert client.get_received()[-1]['args'][0] == "The game has not started yet"
+        assert client.get_received()[-1]['args'][0] == "Wait for the other player"
         
     def test_update_board_turn_error(self, client_maker):
         *_, client2 = set_up_the_room(client_maker, 2)

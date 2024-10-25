@@ -9,8 +9,9 @@ const Room = ({ code, size }) => {
 		return size === 0 ? 'green' : size === 1 ? 'yellow' : 'red';
 	};
 
+	//TODO: Full rooms message showing
 	return (
-		<div className={`room ${getColor()}`} onClick={() => navigate(`/room/${code}`)}>
+		<div className={`room ${getColor()}`} onClick={() => size !== 2 ? navigate(`/room/${code}`) : null}> 
 			{code}
 		</div>
 	);
