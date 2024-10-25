@@ -45,7 +45,6 @@ class RoomEvents(EventHandler):
             # TODO: cache (rejoining room)
             
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
-            emit('player-info', player.get_state())
             emit('board-update', room.game_state.get_board_state())
 
         @self.socketio.on('leave-room')

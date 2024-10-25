@@ -27,13 +27,11 @@ class GameEvents(EventHandler):
                 if error_message:
                     emit('board-update-error', error_message)
                     return
-            # TODO: frontend fix
+
             emit('board-update', room.game_state.get_board_state(), to=room.code)
             
             winner = room.game_state.get_winner()
-            
-            # TODO: change the thing to send personalized event to each player
-            # instead of sending symbol as the client should not know its symbol
+
             if winner is not None:
                 if not isinstance(winner, Player):
                     emit('game-ended', {'winner': winner}, to=room.code)
@@ -54,10 +52,7 @@ class GameEvents(EventHandler):
             # If both players want to restart the game
             if room.game_state.all_players_want_to_play_again():
                 room.game_state.restart_game() 
-                
-                emit('player-info', room.game_state.get_player_info(request.sid))
-                emit('player-info', room.game_state.get_opposing_player_info(request.sid), to=room.code, skip_sid=request.sid)
+
                 emit('board-update', room.game_state.get_board_state(), to=room.code)
                 emit('game-restarted', to=room.code)
                 
-                #TODO: in board update, send back message if the move is invalid
