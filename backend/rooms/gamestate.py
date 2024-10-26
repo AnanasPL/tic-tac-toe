@@ -10,12 +10,14 @@ class GameState:
     Attributes:
         board (Board): Current board state
         players (list[Player]): List of players in the game
+        play_again_state (dict[str, None | bool]): The state of playing again
     """
     
     def __init__(self) -> None:
         self.board = Board()
         self.players: list[Player] = []
-                
+        self.play_again_state = {'O': None, 'X': None}
+        
     def get_players_session_ids(self) -> tuple[str]:
         """Returns a tuple with all the session ids of the players in the game"""
         return tuple(player.session_id for player in self.players)   
@@ -65,11 +67,13 @@ class GameState:
         self.players.append(Player(
             player_sid, 
             'O' if len(self.players) == 0 else 'X' if self.players[0].symbol == 'O' else 'O',
-            True if len (self.players) == 0 else False if self.players[0].is_current_player else True
+            True if len (self.players) == 0 else not self.players[0].is_current_player
         ))
         
-        return self.get_player_by_session_id(player_sid)
+        self.play_again_state[self.get_player_by_session_id(player_sid).symbol] = None
         
+        return self.get_player_by_session_id(player_sid)
+    
     def remove_player(self, player_sid: str) -> None:
         """Removes player of the given sid from the game
 
@@ -80,6 +84,8 @@ class GameState:
             PlayerNotFoundError: If the player is not in the room
         """
         player = self.get_player_by_session_id(player_sid)
+        
+        self.play_again_state[player.symbol] = False
         self.players.remove(player)
             
     def update_board_state(self, index: int, player_sid: str) -> None:
@@ -140,7 +146,7 @@ class GameState:
         Raises:
             PlayerNotFoundError: If the player is not in the room
         """
-        self.get_player_by_session_id(player_sid).wants_to_play_again = decision
+        self.play_again_state[self.get_player_by_session_id(player_sid).symbol] = decision
     
     def get_player_info(self, player_sid: str) -> dict:
         """Returns the player state of the player with the given session id
@@ -198,26 +204,25 @@ class GameState:
         """Returns whether all players want to play again or not
 
         Returns:
-            bool:
-                `True` if the `wants_to_play_again` property is `True`
-                for every player, False otherwise
+            bool: Whether all values in the `playAgainState` are True
         """
-        return all([player.wants_to_play_again for player in self.players])
+        return all(self.play_again_state.values())
     
     def restart_game(self) -> None:
         """Restarts the game.
         
         Clears the board, reverses each player's symbol,
         sets `is_current_player` property to the correct one
-        ("O" always starts), and sets 
-        `wants_to_play_again` property back to `None` 
+        ("O" always starts), and sets each value in `play_again_state`
+        back to None
         """
         self.board.clear()
           
         for player in self.players:
             player.reverse_symbol()
             player.is_current_player = player.symbol == 'O'
-            player.wants_to_play_again = None
+        
+        self.play_again_state = {'O': None, 'X': None}
 
     def get_board_state(self) -> list:
         """Returns the current board state

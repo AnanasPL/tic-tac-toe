@@ -43,8 +43,7 @@ class TestGetPlayerFromTheGameState:
         
         assert gs.get_player_info('XXX') == {
             'symbol': 'O', 
-            'isCurrentPlayer': True, 
-            'wantsToPlayAgain': None
+            'isCurrentPlayer': True,
             }
     
     def test_get_opposing_player_info(self):
@@ -54,8 +53,7 @@ class TestGetPlayerFromTheGameState:
         
         assert gs.get_opposing_player_info('XXX') == {
             'symbol': 'X', 
-            'isCurrentPlayer': False, 
-            'wantsToPlayAgain': None
+            'isCurrentPlayer': False,
             }
 
     def test_get_opposing_player_info_when_there_is_only_one_player(self):

@@ -8,9 +8,6 @@ class Player:
         session_id (str): A session id of the player
         symbol (str): A symbol of the player. Should be `O` or `X`
         is_current_player (bool): Whether the player is able to make a move now
-        wants_to_play_again (None | bool): 
-            Whether the player wants to play again or not,
-            or is the decision unmade
     """
     
     def __init__(
@@ -18,20 +15,15 @@ class Player:
         session_id: str,
         symbol: str, 
         is_current_player: Union[None, bool] = None,
-        wants_to_play_again: Union[None, bool] = None
         ) -> None:
         """    
         Args: 
             session_id (str): A session id of the player
             symbol (str): A symbol of the player. Should be `O` or `X`
-            wants_to_play_again (None | bool): 
-                Whether the player wants to play again or not,
-                or is the decision unmade. None by default
         """
         self.session_id = session_id       
         self.symbol = symbol
         self.is_current_player = self.symbol == 'O' if is_current_player is None else is_current_player
-        self.wants_to_play_again = wants_to_play_again
 
     def __eq__(self, other: object) -> bool:
         """
@@ -42,10 +34,7 @@ class Player:
             return self.session_id == other.session_id
         
         return False
-    
-    def __hash__(self) -> int:
-        return hash(self.session_id)
-        
+       
     def reverse_symbol(self) -> str:
         """
         Toggles between 'X' and 'O' symbols and returns the updated symbol.
@@ -79,5 +68,4 @@ class Player:
         return {
             'symbol': self.symbol,
             'isCurrentPlayer': self.is_current_player,
-            'wantsToPlayAgain': self.wants_to_play_again,
         }

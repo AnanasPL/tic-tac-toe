@@ -30,15 +30,13 @@ class GameEvents(EventHandler):
 
             emit('board-update', room.game_state.get_board_state(), to=room.code)
             
-            winner = room.game_state.get_winner()
-
-            if winner is not None:
+            if (winner := room.game_state.get_winner()) is not None:
                 if not isinstance(winner, Player):
                     emit('game-ended', {'winner': winner}, to=room.code)
                     return
                     
-                emit('game-ended', {'winner': True, 'symbol': winner.symbol} ,to=winner.session_id)
-                emit('game-ended', {'winner': False, 'symbol': winner.symbol} ,to=room.code, skip_sid=winner.session_id)
+                emit('game-ended', {'winner': True, 'symbol': winner.symbol}, to=winner.session_id)
+                emit('game-ended', {'winner': False, 'symbol': winner.symbol}, to=room.code, skip_sid=winner.session_id)
                
         @self.socketio.on('restart-request')
         def restart_request():

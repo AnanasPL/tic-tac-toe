@@ -38,5 +38,5 @@ class TestRestartGame:
     def test_reset_wants_to_play_again(self, gs2):
         gs2.restart_game()
         
-        assert gs2.get_player_info('XXX')['wantsToPlayAgain'] is None
-        assert gs2.get_player_info('YYY')['wantsToPlayAgain'] is None
+        assert gs2.play_again_state['O'] is None
+        assert gs2.play_again_state['X'] is None

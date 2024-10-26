@@ -9,8 +9,8 @@ class TestPlayAgain:
         gs.player_wants_to_play_again('XXX', True)
         gs.player_wants_to_play_again('YYY', False)
         
-        assert gs.get_player_info('XXX')['wantsToPlayAgain']
-        assert not gs.get_player_info('YYY')['wantsToPlayAgain']
+        assert gs.play_again_state['O']
+        assert not gs.play_again_state['X']
     
     def test_player_wants_to_play_again_invalid_player_session_id(self, gs):
         with pytest.raises(PlayerNotFoundError):

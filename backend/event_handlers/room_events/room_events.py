@@ -1,6 +1,7 @@
 from flask import request
 from flask_socketio import emit, join_room, leave_room
 
+from rooms.player import Player
 from rooms import Room
 from event_handlers.shared import rooms
 from ..event_handler import EventHandler
@@ -46,6 +47,14 @@ class RoomEvents(EventHandler):
             
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('board-update', room.game_state.get_board_state())
+                     
+            if (winner := room.game_state.get_winner()) is not None:
+                if not isinstance(winner, Player):
+                    emit('game-ended', {'winner': winner})
+                    return
+                
+                symbol = room.game_state.get_player_by_session_id(request.sid).symbol
+                emit('game-ended', {'winner': winner.symbol == symbol, 'symbol': winner.symbol})
 
         @self.socketio.on('leave-room')
         def leave_room_(code: int):
