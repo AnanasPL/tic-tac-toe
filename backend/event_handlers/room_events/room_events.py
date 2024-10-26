@@ -47,19 +47,29 @@ class RoomEvents(EventHandler):
             
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('board-update', room.game_state.get_board_state())
-                     
-            if (winner := room.game_state.get_winner()) is not None:
-                if not isinstance(winner, Player):
-                    emit('game-ended', {'winner': winner})
-                    return
+                        
+            if room.game_state.has_game_ended():
+                winner = room.game_state.get_winner()
                 
-                symbol = room.game_state.get_player_by_session_id(request.sid).symbol
-                emit('game-ended', {'winner': winner.symbol == symbol, 'symbol': winner.symbol})
+                if isinstance(winner, Player):
+                    symbol = room.game_state.get_player_by_session_id(request.sid).symbol
+                    emit('game-ended', {'winner': winner.symbol == symbol, 'symbol': winner.symbol})
+                else:
+                    emit('game-ended', {'winner': winner})
+                    
+                emit('play-again-state-update', room.game_state.play_again_state, to=room.code)
+                
 
         @self.socketio.on('leave-room')
         def leave_room_(code: int):
             leave_room(code)
             room = rooms.get_room_by_code(code)
+            
+            game_ended = room.game_state.has_game_ended()
+            
             room.remove_player(request.sid)
             
+            if game_ended:
+                emit('play-again-state-update', room.game_state.play_again_state, to=room.code)
+                
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)

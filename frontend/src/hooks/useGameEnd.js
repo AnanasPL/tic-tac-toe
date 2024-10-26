@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 
 import socketContext from '../contexts/socketContext';
 
@@ -8,15 +8,21 @@ const useGameEnd = (setVisible) => {
   const [playAgainState, setPlayAgainState] = useState({ O: null, X: null });
   const winnerRef = useRef({ text: '', symbol: '' });
 
-  const restartRequestFn = useCallback(({ symbol }) => {
-    setPlayAgainState({...playAgainState, [symbol]: `\u2714`});
-  }, [playAgainState]);
-
   useEffect(() => {   
-    addMessageListener('restart-request', restartRequestFn, true);
+    const playAgainStateUpdateFn = (newState) => {     
+      newState = Object.fromEntries(Object.entries(newState).map(([sym, v]) => 
+        [sym, v === null ? null : v ? `\u2714` : `\u2717`]
+      ))
+      
+      console.log(newState)
+
+      setPlayAgainState(newState);
+    };
+
+    addMessageListener('play-again-state-update', playAgainStateUpdateFn, true);
     
-    return () => removeMessageListener('restart-request', restartRequestFn);
-  }, [restartRequestFn]);
+    return () => removeMessageListener('play-again-state-update', playAgainStateUpdateFn);
+  }, [playAgainState]);
   
 	useEffect(() => {
     const gameEndedFn = ({ winner, symbol }) => {

@@ -231,3 +231,6 @@ class GameState:
             list: The current board state
         """
         return self.board.get_state()
+    
+    def has_game_ended(self) -> bool:
+        return self.get_winner() is not None

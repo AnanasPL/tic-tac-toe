@@ -30,22 +30,21 @@ class GameEvents(EventHandler):
 
             emit('board-update', room.game_state.get_board_state(), to=room.code)
             
-            if (winner := room.game_state.get_winner()) is not None:
-                if not isinstance(winner, Player):
+            if room.game_state.has_game_ended():
+                winner = room.game_state.get_winner()
+                
+                if isinstance(winner, Player):
+                    emit('game-ended', {'winner': True, 'symbol': winner.symbol}, to=winner.session_id)
+                    emit('game-ended', {'winner': False, 'symbol': winner.symbol}, to=room.code, skip_sid=winner.session_id)
+                else:
                     emit('game-ended', {'winner': winner}, to=room.code)
-                    return
-                    
-                emit('game-ended', {'winner': True, 'symbol': winner.symbol}, to=winner.session_id)
-                emit('game-ended', {'winner': False, 'symbol': winner.symbol}, to=room.code, skip_sid=winner.session_id)
                
         @self.socketio.on('restart-request')
         def restart_request():
             room = rooms.get_player_room(request.sid)
             room.game_state.player_wants_to_play_again(request.sid, True)
-            
-            player_symbol = room.game_state.get_player_by_session_id(request.sid).symbol
 
-            emit('restart-request', {'symbol': player_symbol}, to=room.code)
+            emit('play-again-state-update', room.game_state.play_again_state, to=room.code)
             
             # If both players want to restart the game
             if room.game_state.all_players_want_to_play_again():
