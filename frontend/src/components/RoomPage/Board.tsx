@@ -1,16 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import socketContext from '../../contexts/socketContext';
+import { useSocketContext } from '@/contexts/socketContext';
 
-import useBoardState from '../../hooks/useBoardState';
+import useBoardState from '@/hooks/useBoardState';
 
 import Cell from './Cell';
 import WinnerInfo from './WinnerInfo';
 
 const Board = () => {
-  const { emit } = useContext(socketContext);
+  const { emit } = useSocketContext();
   const boardState = useBoardState();
   const { roomCode } = useParams();
 
@@ -30,6 +30,6 @@ const Board = () => {
       <WinnerInfo />
     </div>
   );
-};
+}
 
 export default Board;

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import socketContext from '../contexts/socketContext';
+import { socketContext } from '@/contexts/socketContext';
 
-import useSocket from '../hooks/useSocket';
+import useSocket from '@/hooks/useSocket';
 
 import Rooms from './RoomsView/Rooms';
 import RoomPage from './RoomPage/RoomPage';
@@ -34,6 +34,6 @@ const App = () => {
 			<RouterProvider router={router}></RouterProvider>
 		</socketContext.Provider>
 	);
-};
+}
 
 export default App;

@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import socketContext from '../../contexts/socketContext';
+import { useSocketContext } from '@/contexts/socketContext';
 
 const AddRoom = () => {
-	const { emit, addMessageListener, removeMessageListener } = useContext(socketContext);
+	const { emit, addMessageListener, removeMessageListener } = useSocketContext();
 	const navigate = useNavigate();
 	
 	useEffect(() => {
-		const roomCreatedSuccessfullyFn = (code) => navigate(`/room/${code}`) //TODO: Full rooms
+		const roomCreatedSuccessfullyFn = (code: string) => navigate(`/room/${code}`) //TODO: Full rooms
 
 		addMessageListener('room-created-successfully', roomCreatedSuccessfullyFn, true);
 
 		return () => removeMessageListener('room-created-successfully', roomCreatedSuccessfullyFn);
-	}, []); 
+	}, [navigate]); 
 
 	return (
 		<div className='addRoom'>
@@ -26,6 +26,6 @@ const AddRoom = () => {
 			</button>
 		</div>
 	);
-};
+}
 
 export default AddRoom;

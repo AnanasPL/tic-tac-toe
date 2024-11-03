@@ -9,6 +9,6 @@ const ErrorPage = () => {
       <Link to='/' >Go back to the main page </Link>
     </div>
   );
-};
+}
 
 export default ErrorPage;

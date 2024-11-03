@@ -1,6 +1,13 @@
 import React from 'react';
 
-const PlayAgainStatus = ({ status }) => {
+interface PlayAgainStatusProps {
+  status: {
+    O: string | null,
+    X: string | null
+  }
+}
+
+const PlayAgainStatus = ({ status }: PlayAgainStatusProps) => {
   return (
     <div className="players-play-again-status-wrapper">
       <div className="player-status-wrapper">
@@ -13,6 +20,6 @@ const PlayAgainStatus = ({ status }) => {
       </div>
     </div>
   );
-};
+}
 
 export default React.memo(PlayAgainStatus);

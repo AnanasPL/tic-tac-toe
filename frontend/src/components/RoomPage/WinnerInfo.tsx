@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import socketContext from '../../contexts/socketContext';
+import { useSocketContext } from '@/contexts/socketContext';
 
-import useGameEnd from '../../hooks/useGameEnd';
+import useGameEnd from '@/hooks/useGameEnd';
 
 import PlayAgainStatus from './PlayAgainStatus';
 
 const WinnerInfo = () => {
-	const { emit } = useContext(socketContext);
+	const { emit } = useSocketContext();
 	
   const [visible, setVisible] = useState(false);
 	const [winner, playAgainState] = useGameEnd(setVisible);
@@ -36,6 +36,6 @@ const WinnerInfo = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default WinnerInfo;

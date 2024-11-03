@@ -2,7 +2,12 @@ import React from 'react';
 
 import { useNavigate } from 'react-router-dom' ;
 
-const Room = ({ code, size }) => {
+interface RoomProps {
+	code: string,
+	size: number
+}
+
+const Room = ({ code, size }: RoomProps) => {
 	const navigate = useNavigate();
 
 	const getColor = () => {
@@ -15,6 +20,6 @@ const Room = ({ code, size }) => {
 			{code}
 		</div>
 	);
-};
+}
 
 export default Room;

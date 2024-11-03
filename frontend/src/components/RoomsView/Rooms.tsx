@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import socketContext from '../../contexts/socketContext';
+import { useSocketContext } from '@/contexts/socketContext';
 
 import Room from './RoomInfo';
 import AddRoom from './AddRoom';
 
 const Rooms = () => {
-  const [rooms, setRooms] = useState([]);
-  const { emit, addMessageListener, removeMessageListener } = useContext(socketContext);
+  const [rooms, setRooms] = useState<[string, number][]>([]);
+  const { emit, addMessageListener, removeMessageListener } = useSocketContext();
 
   useEffect(() => {
-    const roomsUpdateFn = ({ rooms }) => setRooms(rooms);
+    const roomsUpdateFn = ({ rooms }: {rooms: [string, number][]}) => setRooms(rooms);
     
     addMessageListener('rooms-update', roomsUpdateFn);
 
@@ -25,6 +25,6 @@ const Rooms = () => {
       {rooms.map(([code, size], id) => <Room code={code} size={size} key={id}/>)}
     </div>
   );
-};
+}
 
 export default Rooms;

@@ -13,6 +13,6 @@ const RoomNotFound = () => {
       </Link>
     </div>
   );
-};
+}
 
 export default RoomNotFound;
