@@ -3,14 +3,14 @@ import { useEffect, useState, useRef } from "react";
 import { useSocketContext } from "@/contexts/socketContext";
 
 type playAgainStatus = {
-	O: null | string;
-	X: null | string;
-};
+	O: null | string,
+	X: null | string
+}
 
 type winnerInfo = {
-	text: string;
-	symbol: string;
-};
+	text: string,
+	symbol: string
+}
 
 const useGameEnd: (
 	setVisible: (visible: boolean) => void
@@ -28,15 +28,11 @@ const useGameEnd: (
 			X: boolean | null;
 			O: boolean | null;
 		}) => {
-			const a = Object.fromEntries(
-				Object.entries(newState).map(([sym, v]) => [
-					sym,
-					v === null ? null : v ? `\u2714` : `\u2717`,
-				])
-			);
-
-			setPlayAgainState(a as playAgainStatus);
-		};
+			setPlayAgainState({
+				X: newState.X === null ? null : newState.X ? `\u2714` : `\u2717`,
+				O: newState.O === null ? null : newState.O ? `\u2714` : `\u2717`
+			});
+		}
 
 		addMessageListener("play-again-state-update", playAgainStateUpdateFn, true);
 
@@ -54,15 +50,15 @@ const useGameEnd: (
 		}) => {
 			winnerRef.current = {
 				text: symbol ? (winner ? "YOU WON!" : "YOU LOST!") : "TIE!",
-				symbol: symbol ? symbol : "O / X", //placeholder
-			};
+				symbol: symbol ? symbol : "O / X"
+			}
 			setVisible(true);
-		};
+		}
 
 		const restartGameFn = () => {
 			setPlayAgainState({ O: null, X: null });
 			setVisible(false);
-		};
+		}
 
 		addMessageListener("game-ended", gameEndedFn);
 		addMessageListener("game-restarted", restartGameFn);
@@ -70,10 +66,10 @@ const useGameEnd: (
 		return () => {
 			removeMessageListener("game-ended", gameEndedFn);
 			removeMessageListener("game-restarted", restartGameFn);
-		};
+		}
 	}, [setVisible]);
 
 	return [winnerRef.current, playAgainState];
-};
+}
 
 export default useGameEnd;

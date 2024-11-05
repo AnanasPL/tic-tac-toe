@@ -29,9 +29,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+	const socket = useSocket();
+
 	return (
-		<socketContext.Provider value={useSocket()}>
-			<RouterProvider router={router}></RouterProvider>
+		<socketContext.Provider value={socket}>
+			<RouterProvider router={router} />
 		</socketContext.Provider>
 	);
 }

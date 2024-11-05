@@ -5,9 +5,9 @@ import { socketFunctions } from '@/hooks/useSocket';
 export const socketContext = createContext<socketFunctions | undefined>(undefined);
 
 export const useSocketContext = () => {
-  const socketFunctions = useContext(socketContext);
+  const socket = useContext(socketContext);
 
-  if (socketFunctions === undefined) throw new Error("Must be used in a context provider");
+  if (socket === undefined) throw new Error("Must be used in a context provider");
 
-  return socketFunctions;
+  return socket;
 }
