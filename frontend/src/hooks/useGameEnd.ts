@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-import { useSocketContext } from "@/contexts/socketContext";
+import { useSocketContext } from "../contexts/socketContext";
 
 type playAgainStatus = {
 	O: null | string,

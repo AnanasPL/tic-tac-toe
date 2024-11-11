@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useSocketContext } from '@/contexts/socketContext';
+import { useSocketContext } from '../../contexts/socketContext';
 
-import useGameEnd from '@/hooks/useGameEnd';
+import useGameEnd from '../../hooks/useGameEnd';
 
 import PlayAgainStatus from './PlayAgainStatus';
 

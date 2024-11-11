@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { useSocketContext } from '@/contexts/socketContext';
+import { useSocketContext } from '../../contexts/socketContext';
 
-import useBoardState from '@/hooks/useBoardState';
+import useBoardState from '../../hooks/useBoardState';
 
 import Cell from './Cell';
 import WinnerInfo from './WinnerInfo';
