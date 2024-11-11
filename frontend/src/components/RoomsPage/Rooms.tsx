@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useSocketContext } from '@/contexts/socketContext';
+import { useSocketContext } from '../../contexts/socketContext';
 
 import Room from './RoomInfo';
 import AddRoom from './AddRoom';

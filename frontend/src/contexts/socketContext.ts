@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { socketFunctions } from '@/hooks/useSocket';
+import { socketFunctions } from '../hooks/useSocket';
 
 export const socketContext = createContext<socketFunctions | undefined>(undefined);
 

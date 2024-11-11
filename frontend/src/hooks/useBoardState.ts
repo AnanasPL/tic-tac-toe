@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import { useSocketContext } from '@/contexts/socketContext';
-import { useMessageContext } from '@/contexts/messageContext';
+import { useSocketContext } from '../contexts/socketContext';
+import { useMessageContext } from '../contexts/messageContext';
 
 const useBoardState = () => {
   const [boardState, setBoardState] = useState<string[]>(Array(9).fill(''));

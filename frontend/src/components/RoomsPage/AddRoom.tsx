@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { useSocketContext } from '@/contexts/socketContext';
+import { useSocketContext } from '../../contexts/socketContext';
 
 const AddRoom = () => {
 	const { emit, addMessageListener, removeMessageListener } = useSocketContext();

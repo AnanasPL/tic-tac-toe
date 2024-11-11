@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { socketContext } from '@/contexts/socketContext';
+import { socketContext } from '../contexts/socketContext';
 
-import useSocket from '@/hooks/useSocket';
+import useSocket from '../hooks/useSocket';
 
 import Rooms from './RoomsPage/Rooms';
 import RoomPage from './GamePage/RoomPage';
