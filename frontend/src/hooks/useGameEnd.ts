@@ -21,6 +21,7 @@ const useGameEnd: (
 		O: null,
 		X: null,
 	});
+	
 	const winnerRef = useRef<winnerInfo>({ text: "", symbol: "" });
 
 	useEffect(() => {

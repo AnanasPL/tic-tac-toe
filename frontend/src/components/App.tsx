@@ -6,11 +6,11 @@ import { socketContext } from '@/contexts/socketContext';
 
 import useSocket from '@/hooks/useSocket';
 
-import Rooms from './RoomsView/Rooms';
-import RoomPage from './RoomPage/RoomPage';
+import Rooms from './RoomsPage/Rooms';
+import RoomPage from './GamePage/RoomPage';
 
-import ErrorPage from './errorPages/BasicErrorPage';
-import RoomNotFound from './errorPages/RoomNotFound';
+import ErrorPage from './ErrorPages/BasicErrorPage';
+import RoomNotFound from './ErrorPages/RoomNotFound';
 
 const router = createBrowserRouter([
 	{
