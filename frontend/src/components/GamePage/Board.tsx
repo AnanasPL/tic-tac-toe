@@ -21,14 +21,21 @@ const Board = () => {
   }, []);
 
   return (
-    <div className='board'>
-      {boardState.map((val, id) => 
-        <Cell 
-        value={val} 
-        onClick={() => emit('board-update', id)}
-        key={id}/>)}
+    <>
+      <div className='board'>
+        {boardState.map((val, id) => 
+          <Cell 
+          value={val} 
+          onClick={() => emit('board-update', id)}
+          key={id}/>
+          )}
+        <span className="line"></span>
+        <span className="line"></span>
+        <span className="line"></span>
+        <span className="line"></span>
+      </div>
       <WinnerInfo />
-    </div>
+    </>
   );
 }
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface CellProps {
   value: string,
-  onClick: any
+  onClick: MouseEventHandler
 }
 
 const Cell = ({ value, onClick }: CellProps) => {

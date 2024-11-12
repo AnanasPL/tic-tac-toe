@@ -31,8 +31,10 @@ const RoomPage = () => {
   }, []);
 
   return (roomExists && (<>
-    <Link to='/'>
-      Go back to the main page
+    <Link to='/' className='nav-button'>
+      <button>
+        Go back to the main page
+      </button>
     </Link>
 
     <messageContext.Provider value={setMessage}>
