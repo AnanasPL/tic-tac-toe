@@ -8,7 +8,7 @@ import { messageContext } from '../../contexts/messageContext';
 import Board from './Board';
 import Message from './Message';
 
-const RoomPage = () => {
+const GamePage = () => {
   const {emit, addMessageListener, removeMessageListener} = useSocketContext();
 
   const [message, setMessage] = useState('');
@@ -31,11 +31,13 @@ const RoomPage = () => {
   }, []);
 
   return (roomExists && (<>
-    <Link to='/' className='nav-button'>
-      <button>
-        Go back to the main page
-      </button>
-    </Link>
+    <div className='nav-button'>
+      <Link to='/'>
+        <button>
+          Go back to the main page
+        </button>
+      </Link>
+    </div>
 
     <messageContext.Provider value={setMessage}>
       <Board />
@@ -46,4 +48,4 @@ const RoomPage = () => {
   );
 }
 
-export default RoomPage;
+export default GamePage;

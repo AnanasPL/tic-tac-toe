@@ -7,7 +7,7 @@ import { socketContext } from '../contexts/socketContext';
 import useSocket from '../hooks/useSocket';
 
 import Rooms from './RoomsPage/Rooms';
-import RoomPage from './GamePage/RoomPage';
+import GamePage from './GamePage/GamePage';
 
 import ErrorPage from './ErrorPages/BasicErrorPage';
 import RoomNotFound from './ErrorPages/RoomNotFound';
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/room/:roomCode',
-		element: <RoomPage />,
+		element: <GamePage />,
 	},
 	{
 		path: '/room-not-found',
