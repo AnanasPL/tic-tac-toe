@@ -17,7 +17,7 @@ const AddRoom = () => {
 	}, [navigate]); 
 
 	return (
-		<div className='addRoom'>
+		<div className='add-room-button'>
 			<button id='roomCreation' onClick={() => {
 				emit('remove-empty-rooms');
 				emit('create-room');

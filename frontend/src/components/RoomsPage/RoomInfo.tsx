@@ -16,8 +16,11 @@ const Room = ({ code, size }: RoomProps) => {
 
 	//TODO: Full rooms message showing
 	return (
-		<div className={`room ${getColor()}`} onClick={() => size !== 2 ? navigate(`/room/${code}`) : null}> 
+		<div className={'room'} onClick={() => size !== 2 ? navigate(`/room/${code}`) : null}> 
 			{code}
+			<div className='number-of-players' data-number-of-players={size}>
+				{size}/2
+			</div>
 		</div>
 	);
 }

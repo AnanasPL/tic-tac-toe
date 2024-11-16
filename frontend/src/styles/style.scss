@@ -1,0 +1,21 @@
+@import 'variables';
+@import 'GamePage';
+@import 'PlayAgainStatus';
+@import 'RoomsPage';
+@import 'ErrorPages';
+
+body {
+    background-color: $primary-color;
+    color: $secondary-color;
+    font-family: sans-serif;
+}
+
+button {
+    color: $secondary-color;
+    background-color: transparent;
+    border: 3px solid $secondary-color;
+    border-radius: 20px;
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+}

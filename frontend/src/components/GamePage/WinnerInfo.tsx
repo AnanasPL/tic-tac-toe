@@ -20,19 +20,21 @@ const WinnerInfo = () => {
 		<div className='overlay'>
 			<div className='modal'>
         <div>
-          <p>{winner.text}</p>
-          <p style={{ fontSize: 60 }}>{winner.symbol}</p>
+          <div className='result-info'>{winner.text}</div>
+          <div className='winner-symbol'>{winner.symbol}</div>
         </div>
         
         <PlayAgainStatus status={playAgainState}/>
 
-				<button onClick={() => emit('restart-request')}>
-					Play again?
-				</button>
+        <div className='buttons'>
+          <button onClick={() => emit('restart-request')}>
+            Play again?
+          </button>
 
-				<Link to='/'>
-					<button>Main Page</button>
-				</Link>
+          <Link to='/'>
+            <button>Main Page</button>
+          </Link>
+        </div>
 			</div>
 		</div>
 	);

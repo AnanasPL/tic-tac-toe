@@ -1,0 +1,11 @@
+$primary-color: black;
+$secondary-color: white;
+$board-size: 720px;
+$cell-size: calc($board-size / 3);
+$number-of-players-colors: (0: rgb(0, 160, 0), 1: rgb(222, 222, 0), 2: rgb(245, 0, 0));
+
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

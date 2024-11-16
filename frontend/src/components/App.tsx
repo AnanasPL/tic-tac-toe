@@ -9,14 +9,14 @@ import useSocket from '../hooks/useSocket';
 import Rooms from './RoomsPage/Rooms';
 import GamePage from './GamePage/GamePage';
 
-import ErrorPage from './ErrorPages/BasicErrorPage';
+import PageNotFound from './ErrorPages/PageNotFound';
 import RoomNotFound from './ErrorPages/RoomNotFound';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Rooms />,
-		errorElement: <ErrorPage />,
+		errorElement: <PageNotFound />,
 	},
 	{
 		path: '/room/:roomCode',

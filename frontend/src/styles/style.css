@@ -1,128 +1,261 @@
-.cell {
-    width: 150px;
-    height: 150px;
-    border: 6px black solid;
-    display: flex;
-    font-size: 80px;
-    font-family: sans-serif;
-    align-items: center;
-    justify-content: center;
+.go-back-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  width: 100%;
+  height: 100%;
+}
+.go-back-button button {
+  height: 60px;
+  width: 330px;
+  box-shadow: 0 0 13px white;
+  text-shadow: 0 0 1px white;
+}
+.go-back-button button:hover {
+  box-shadow: 0 0 19px white;
+  text-shadow: 0 0 2px white;
 }
 
 .board {
-    width: 500px;
-    height: 500px;
-    flex-wrap: wrap;
-    justify-items: space-between;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    display: flex;
-    border: 6px red solid;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  min-inline-size: 720px;
+  width: 720px;
+  height: 720px;
 }
 
-.rooms-wrapper {
-    display: flex;
-    margin: auto;
-    width: 600px;
-    justify-content: center;
-    flex-wrap: wrap;
-    font-family: sans-serif;
-    font-size: 60px;
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 240px;
+  font-size: 120px;
+  text-shadow: 0 0 8px white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
-.room {
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    display: flex;
-    margin: auto;
-    border: 10px black dotted;
+.line {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 0 8px white;
+  border-radius: 10px;
 }
-
-.addRoom {
-    width: 100%;
-    height: 80px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+.line:nth-of-type(1) {
+  top: 234px;
+  width: 100%;
+  height: 12px;
+}
+.line:nth-of-type(2) {
+  top: 474px;
+  width: 100%;
+  height: 12px;
+}
+.line:nth-of-type(3) {
+  left: 234px;
+  height: 100%;
+  width: 12px;
+}
+.line:nth-of-type(4) {
+  left: 474px;
+  height: 100%;
+  width: 12px;
 }
 
 .message {
-    display: flex;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    margin-top: 50px;
-    font-size: larger;
-}
-
-.red {
-    background-color: red;
-}
-
-.yellow {
-    background-color: yellow;
-}
-
-.green {
-    background-color: green;
-}
-
-.modal {
-    position: fixed;
-    width: 500px;
-    height: 400px;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    z-index: 20;
-    background-color: darkgrey;
-    border: 2px dotted greenyellow;
-    padding: 10px;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 720px;
+  margin-top: 40px;
+  text-shadow: 0 0 5px white;
+  font-size: 50px;
+  font-family: sans-serif;
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .7);
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal {
+  width: 500px;
+  height: 400px;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  z-index: 101;
+  padding: 10px;
+  text-align: center;
+  background-color: black;
+  border: 4px solid white;
+  border-radius: 20px;
+  box-shadow: 0 0 10px white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.modal .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+}
+.modal .buttons button {
+  width: 200px;
+  height: 50px;
+  box-shadow: 0 0 8px white;
+  text-shadow: 0 0 3px white;
+}
+.modal .buttons button:hover {
+  box-shadow: 0 0 14px white;
+  text-shadow: 0 0 4px white;
+}
+
+.result-info {
+  margin: 25px;
+  font-size: 30px;
+  text-shadow: 0 0 6px white;
+}
+
+.winner-symbol {
+  margin: 45px 0;
+  font-size: 80px;
+  text-shadow: 0 0 8px white;
 }
 
 .players-play-again-status-wrapper {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .player-status-wrapper {
-    display: flex;
-    height: 50px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-size: 30px;
 }
-
 .player-status-wrapper * {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-}
-
-.player-symbol {
-    width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .play-again-status {
-    width: 100px;
+  height: 100%;
+  width: 60px;
+  margin: 0 43px;
+  text-shadow: 0 0 5px white;
 }
 
 .player-symbol {
-    display: flex;
-    font-size: 30px;
+  width: 40px;
+  font-size: 45px;
+  text-shadow: 0 0 5px white;
 }
+
+.rooms-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 600px;
+  font-size: 60px;
+}
+
+.add-room-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 150px;
+}
+.add-room-button button {
+  width: 280px;
+  height: 55px;
+  box-shadow: 0 0 8px white;
+  text-shadow: 0 0 2px white;
+}
+.add-room-button button:hover {
+  box-shadow: 0 0 14px white;
+  text-shadow: 0 0 4px white;
+}
+
+.room {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 30px;
+  background-color: black;
+  border: 5px solid white;
+  border-radius: 20px;
+  box-shadow: 0 0 13px white;
+  text-shadow: 0 0 6px white;
+  cursor: pointer;
+}
+.room [data-number-of-players="0"] {
+  color: rgb(0, 160, 0);
+  text-shadow: 0 0 6px rgb(0, 160, 0);
+}
+.room [data-number-of-players="1"] {
+  color: rgb(222, 222, 0);
+  text-shadow: 0 0 6px rgb(222, 222, 0);
+}
+.room [data-number-of-players="2"] {
+  color: rgb(245, 0, 0);
+  text-shadow: 0 0 6px rgb(245, 0, 0);
+}
+.room .number-of-players {
+  position: absolute;
+  font-size: 35px;
+  bottom: 10px;
+  right: 20px;
+}
+.room:hover {
+  box-shadow: 0 0 20px white;
+}
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 790px;
+  font-size: 40px;
+  text-shadow: 0 0 4px white;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+}
+
+button {
+  color: white;
+  background-color: transparent;
+  border: 3px solid white;
+  border-radius: 20px;
+  font-size: 25px;
+  padding: 5px;
+  cursor: pointer;
+}/*# sourceMappingURL=style.css.map */
