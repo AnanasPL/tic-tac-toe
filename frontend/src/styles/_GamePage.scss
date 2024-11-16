@@ -9,14 +9,13 @@
     height: 100%;
     
     & button {
+        @include shadows(13px, 1px); 
+
         height: 60px;
         width: 330px;
-        box-shadow: 0 0 13px $secondary-color;
-        text-shadow: 0 0 1px $secondary-color;
         
         &:hover {
-            box-shadow: 0 0 19px $secondary-color;
-            text-shadow: 0 0 2px $secondary-color;
+            @include shadows(19px, 2px);
         }
     }
 }
@@ -26,25 +25,25 @@
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    min-inline-size: 720px;
     width: $board-size;
     height: $board-size;
 }
 
 .cell {
     @include flex-center();
+    @include shadows($text-shadow-blur: 8px);
 
     width: $cell-size;
     height: $cell-size;
     font-size: 120px;
-    text-shadow: 0 0 8px $secondary-color;
     user-select: none;
 }
 
 .line {
+    @include shadows(8px);
+
     position: absolute;
     background-color: $secondary-color;
-    box-shadow: 0 0 8px $secondary-color;
     border-radius: 10px;
     
     &:nth-of-type(1) {
@@ -74,11 +73,9 @@
 
 .message {
     @include flex-center();
+    @include shadows($text-shadow-blur: 5px);
 
     min-width: $board-size;
     margin-top: 40px;
-    text-shadow: 0 0 5px $secondary-color;
-
     font-size: 50px;
-    font-family: sans-serif;
 }

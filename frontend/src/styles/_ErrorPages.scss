@@ -2,8 +2,8 @@
 
 .error-message {
     @include flex-center();
+    @include shadows($text-shadow-blur: 4px);
     
     height: 790px;
     font-size: 40px;
-    text-shadow: 0 0 4px $secondary-color;
 }

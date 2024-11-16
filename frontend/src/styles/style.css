@@ -8,10 +8,10 @@
   height: 100%;
 }
 .go-back-button button {
-  height: 60px;
-  width: 330px;
   box-shadow: 0 0 13px white;
   text-shadow: 0 0 1px white;
+  height: 60px;
+  width: 330px;
 }
 .go-back-button button:hover {
   box-shadow: 0 0 19px white;
@@ -23,7 +23,6 @@
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  min-inline-size: 720px;
   width: 720px;
   height: 720px;
 }
@@ -32,19 +31,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 8px white;
   width: 240px;
   height: 240px;
   font-size: 120px;
-  text-shadow: 0 0 8px white;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
 
 .line {
+  box-shadow: 0 0 8px white;
+  text-shadow: 0 0 0 white;
   position: absolute;
   background-color: white;
-  box-shadow: 0 0 8px white;
   border-radius: 10px;
 }
 .line:nth-of-type(1) {
@@ -72,11 +73,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 5px white;
   min-width: 720px;
   margin-top: 40px;
-  text-shadow: 0 0 5px white;
   font-size: 50px;
-  font-family: sans-serif;
 }
 
 .overlay {
@@ -90,6 +91,8 @@
 }
 
 .modal {
+  box-shadow: 0 0 10px white;
+  text-shadow: 0 0 0 white;
   width: 500px;
   height: 400px;
   position: fixed;
@@ -102,7 +105,6 @@
   background-color: black;
   border: 4px solid white;
   border-radius: 20px;
-  box-shadow: 0 0 10px white;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -117,10 +119,10 @@
   margin-top: 10px;
 }
 .modal .buttons button {
+  box-shadow: 0 0 8px white;
+  text-shadow: 0 0 2px white;
   width: 200px;
   height: 50px;
-  box-shadow: 0 0 8px white;
-  text-shadow: 0 0 3px white;
 }
 .modal .buttons button:hover {
   box-shadow: 0 0 14px white;
@@ -128,15 +130,17 @@
 }
 
 .result-info {
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 6px white;
   margin: 25px;
   font-size: 30px;
-  text-shadow: 0 0 6px white;
 }
 
 .winner-symbol {
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 8px white;
   margin: 45px 0;
   font-size: 80px;
-  text-shadow: 0 0 8px white;
 }
 
 .players-play-again-status-wrapper {
@@ -159,25 +163,27 @@
 }
 
 .play-again-status {
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 5px white;
   height: 100%;
   width: 60px;
   margin: 0 43px;
-  text-shadow: 0 0 5px white;
 }
 
 .player-symbol {
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 5px white;
   width: 40px;
   font-size: 45px;
-  text-shadow: 0 0 5px white;
 }
 
 .rooms-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   margin: auto;
   width: 600px;
-  font-size: 60px;
 }
 
 .add-room-button {
@@ -188,10 +194,10 @@
   height: 150px;
 }
 .add-room-button button {
-  width: 280px;
-  height: 55px;
   box-shadow: 0 0 8px white;
   text-shadow: 0 0 2px white;
+  width: 280px;
+  height: 55px;
 }
 .add-room-button button:hover {
   box-shadow: 0 0 14px white;
@@ -202,6 +208,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 13px white;
+  text-shadow: 0 0 6px white;
   position: relative;
   width: 100%;
   height: 200px;
@@ -209,8 +217,7 @@
   background-color: black;
   border: 5px solid white;
   border-radius: 20px;
-  box-shadow: 0 0 13px white;
-  text-shadow: 0 0 6px white;
+  font-size: 60px;
   cursor: pointer;
 }
 .room [data-number-of-players="0"] {
@@ -239,9 +246,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 0 white;
+  text-shadow: 0 0 4px white;
   height: 790px;
   font-size: 40px;
-  text-shadow: 0 0 4px white;
 }
 
 body {
