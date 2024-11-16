@@ -1,6 +1,7 @@
 from typing import Union
-from errors import FieldAlreadyTakenError, GameAlreadyFinishedError
 
+from errors import FieldAlreadyTakenError, GameAlreadyFinishedError
+from .enums import Symbol
 
 class Board:
     """Board of a Tic-Tac-Toe game"""
@@ -14,7 +15,7 @@ class Board:
         self._board_state = ['' for _ in range(9)]
         self._winner = None
 
-    def update(self, index: int, symbol: str) -> None:
+    def update(self, index: int, symbol: Symbol) -> None:
         """Updates the current board state
 
         Args:

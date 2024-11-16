@@ -3,6 +3,7 @@ from typing import Union
 from errors import *
 from .board import Board
 from .player import Player
+from .enums import Symbol
 
 class GameState:   
     """Game state of a Tic-Tac-Toe game.
@@ -164,7 +165,7 @@ class GameState:
         """
         return self.get_player_by_session_id(player_sid).get_state()
     
-    def get_player_by_symbol(self, symbol: str) -> Player:
+    def get_player_by_symbol(self, symbol: Symbol) -> Player:
         """Returns the Player that has the given symbol
 
         Args:

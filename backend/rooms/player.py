@@ -1,5 +1,7 @@
 from typing import Union
 
+from .enums import Symbol
+
 
 class Player:
     """A player in Tic-Tac-Toe game
@@ -13,13 +15,13 @@ class Player:
     def __init__(
         self, 
         session_id: str,
-        symbol: str, 
+        symbol: Symbol, 
         is_current_player: Union[None, bool] = None,
         ) -> None:
         """    
         Args: 
-            session_id (str): A session id of the player
-            symbol (str): A symbol of the player. Should be `O` or `X`
+            session_id (str): The session id of the player
+            symbol (Symbol): The symbol of the player (either `O` or `X`)
         """
         self.session_id = session_id       
         self.symbol = symbol
@@ -35,7 +37,7 @@ class Player:
         
         return False
        
-    def reverse_symbol(self) -> str:
+    def reverse_symbol(self) -> Symbol:
         """
         Toggles between 'X' and 'O' symbols and returns the updated symbol.
         

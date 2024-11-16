@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_socketio import SocketIO, SocketIOTestClient
+from flask_socketio import SocketIO
 from event_handlers import initialize_all_handlers
 
 from dotenv import load_dotenv
@@ -15,7 +15,6 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 initialize_all_handlers(socketio)
 
 # TODO: add enum for symbols
-# TODO: names? authentication via them
 
 if __name__ == "__main__":
-    socketio.run(app, port=5000, debug=True)
+    socketio.run(app, port=5000)
