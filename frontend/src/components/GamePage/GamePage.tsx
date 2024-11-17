@@ -20,8 +20,8 @@ const GamePage = () => {
   useEffect(() => {
     const checkForRoomFn = (exists: boolean) => 
       exists ? 
-      setRoomExists(true) : 
-      navigate('/room-not-found', { state: { code: roomCode }});
+        setRoomExists(true) : 
+        navigate('/room-not-found', { state: { code: roomCode }});
 
     addMessageListener('check-if-room-exists-response', checkForRoomFn, true);
 

@@ -1,22 +1,9 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import BasicErrorPage from './BasicErrorPage';
 
 const PageNotFound = () => {
-  return (
-    <>
-      <div className='go-back-button'>
-        <Link to='/'>
-          <button>
-            Go back to the main page
-          </button>
-        </Link>
-      </div>
-      <div className='error-message'>
-        Page was not found
-      </div>
-    </>
-  );
+  return <BasicErrorPage message='Page was not found' />;
 }
 
 export default PageNotFound;
