@@ -13,4 +13,5 @@ $number-of-players-colors: (0: rgb(0, 160, 0), 1: rgb(222, 222, 0), 2: rgb(245, 
 @mixin shadows($box-shadow-blur: 0, $text-shadow-blur: 0) {
     box-shadow: 0 0 $box-shadow-blur $secondary-color;
     text-shadow: 0 0 $text-shadow-blur $secondary-color;
+    transition: ease 0.35s;
 }
