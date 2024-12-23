@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import { useSocketContext } from "../contexts/socketContext";
 
 type playAgainStatus = {
-	O: null | string,
-	X: null | string
+	O: string,
+	X: string
 }
 
 type winnerInfo = {
@@ -18,8 +18,8 @@ const useGameEnd: (
 	const { addMessageListener, removeMessageListener } = useSocketContext();
 
 	const [playAgainState, setPlayAgainState] = useState<playAgainStatus>({
-		O: null,
-		X: null,
+		O: '',
+		X: '',
 	});
 	
 	const winnerRef = useRef<winnerInfo>({ text: "", symbol: "" });
@@ -30,8 +30,8 @@ const useGameEnd: (
 			O: boolean | null;
 		}) => {
 			setPlayAgainState({
-				X: newState.X === null ? null : newState.X ? `\u2714` : `\u2717`,
-				O: newState.O === null ? null : newState.O ? `\u2714` : `\u2717`
+				X: newState.X === null ? '' : newState.X ? `\u2714` : `\u2717`,
+				O: newState.O === null ? '' : newState.O ? `\u2714` : `\u2717`
 			});
 		}
 
@@ -50,14 +50,14 @@ const useGameEnd: (
 			symbol?: string | undefined;
 		}) => {
 			winnerRef.current = {
-				text: symbol ? (winner ? "YOU WON!" : "YOU LOST!") : "TIE!",
+				text: symbol ? (winner ? "YOU WON!" : "YOU LOST!") : "TIE!", //TODO: test it
 				symbol: symbol ? symbol : "O / X"
 			}
 			setVisible(true);
 		}
 
 		const restartGameFn = () => {
-			setPlayAgainState({ O: null, X: null });
+			setPlayAgainState({ O: '', X: '' });
 			setVisible(false);
 		}
 

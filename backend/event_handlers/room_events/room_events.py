@@ -17,7 +17,7 @@ class RoomEvents(EventHandler):
         @self.socketio.on('remove-empty-rooms')
         def clear_empty_rooms():
             rooms.remove_empty_rooms()
-            
+
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             
         @self.socketio.on('check-if-room-exists')
@@ -29,7 +29,7 @@ class RoomEvents(EventHandler):
             room = Room()
             
             rooms.add_rooms(room)
-            
+
             emit('room-created-successfully', room.code)
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
 
@@ -44,7 +44,7 @@ class RoomEvents(EventHandler):
                 emit('room-already-full')
                 return
             # TODO: cache (rejoining room)
-            
+
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('board-update', room.game_state.get_board_state())
                         
@@ -71,5 +71,5 @@ class RoomEvents(EventHandler):
             
             if game_ended:
                 emit('play-again-state-update', room.game_state.play_again_state, to=room.code)
-                
+
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)

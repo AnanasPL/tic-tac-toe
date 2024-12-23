@@ -6,7 +6,7 @@ import { socketContext } from '../contexts/socketContext';
 
 import useSocket from '../hooks/useSocket';
 
-import Rooms from './RoomsPage/Rooms';
+import Rooms from './MainPage/Rooms';
 import GamePage from './GamePage/GamePage';
 
 import PageNotFound from './ErrorPages/PageNotFound';

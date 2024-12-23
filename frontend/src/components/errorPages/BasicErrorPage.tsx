@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface BasicErrorPageProps {
-    message: string
+  message: string
 }
 
 const BasicErrorPage = ({ message }: BasicErrorPageProps) => {

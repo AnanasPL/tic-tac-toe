@@ -18,7 +18,7 @@ const AddRoom = () => {
 
 	return (
 		<div className='add-room-button'>
-			<button id='roomCreation' onClick={() => {
+			<button onClick={() => {
 				emit('remove-empty-rooms');
 				emit('create-room');
 				}}>

@@ -16,6 +16,7 @@ class ConnectionEvents(EventHandler):
             try: 
                 room = rooms.get_player_room(request.sid)
                 room.remove_player(request.sid)
+                emit('play-again-state-update', room.game_state.play_again_state, to=room.code)
             except PlayerNotFoundError:
                 ...
             
