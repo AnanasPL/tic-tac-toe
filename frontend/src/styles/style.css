@@ -12,7 +12,7 @@
   text-shadow: 0 0 1px white;
   transition: ease 0.35s;
   height: 60px;
-  width: 330px;
+  width: 320px;
 }
 .go-back-button button:hover {
   box-shadow: 0 0 19px white;
@@ -25,8 +25,8 @@
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  width: 720px;
-  height: 720px;
+  aspect-ratio: 1/1;
+  width: clamp(320px, 60%, 720px);
 }
 
 .cell {
@@ -36,9 +36,9 @@
   box-shadow: 0 0 0 white;
   text-shadow: 0 0 8px white;
   transition: ease 0.35s;
-  width: 240px;
-  height: 240px;
-  font-size: 120px;
+  aspect-ratio: 1/1;
+  width: clamp(320px / 3, 100% / 3, 240px);
+  font-size: clamp(60px, 10vw, 120px);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -53,24 +53,24 @@
   border-radius: 10px;
 }
 .line:nth-of-type(1) {
-  top: 234px;
+  top: calc(100% / 3);
   width: 100%;
-  height: 12px;
+  height: 2%;
 }
 .line:nth-of-type(2) {
-  top: 474px;
+  top: calc(100% / 3 * 2);
   width: 100%;
-  height: 12px;
+  height: 2%;
 }
 .line:nth-of-type(3) {
-  left: 234px;
+  left: calc(100% / 3);
   height: 100%;
-  width: 12px;
+  width: 2%;
 }
 .line:nth-of-type(4) {
-  left: 474px;
+  left: calc(100% / 3 * 2);
   height: 100%;
-  width: 12px;
+  width: 2%;
 }
 
 .message {
@@ -80,9 +80,9 @@
   box-shadow: 0 0 0 white;
   text-shadow: 0 0 5px white;
   transition: ease 0.35s;
-  min-width: 720px;
+  width: 100%;
   margin-top: 30px;
-  font-size: 50px;
+  font-size: clamp(25px, 5vw, 70px);
 }
 
 .overlay {
@@ -195,7 +195,7 @@
   align-items: center;
   flex-wrap: wrap;
   margin: auto;
-  width: 600px;
+  width: clamp(320px, 80%, 600px);
 }
 
 .add-room-button {
@@ -264,8 +264,12 @@
   box-shadow: 0 0 0 white;
   text-shadow: 0 0 4px white;
   transition: ease 0.35s;
-  height: 790px;
-  font-size: 40px;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: clamp(20px, 5vw, 40px);
 }
 
 body {
@@ -282,4 +286,8 @@ button {
   font-size: 25px;
   padding: 5px;
   cursor: pointer;
+}
+
+#root {
+  min-width: 320px;
 }/*# sourceMappingURL=style.css.map */

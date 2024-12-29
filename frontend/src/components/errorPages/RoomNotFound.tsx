@@ -5,9 +5,14 @@ import { useLocation } from 'react-router-dom';
 import BasicErrorPage from './BasicErrorPage';
 
 const RoomNotFound = () => {
-  const { state: { code }} = useLocation();
+  let message = 'There is no room with the code: ';
 
-  return <BasicErrorPage message={'There is no room with the code: ' + code} />;
+  try {
+    const { state: { code }} = useLocation();
+    message += code;
+  } catch (e) {}
+
+  return <BasicErrorPage message={message} />;
 }
 
 export default RoomNotFound;

@@ -31,7 +31,7 @@ const GamePage = () => {
   }, []);
 
   return (roomExists && (<>
-    <div className='go-back-button' style={{minWidth: 720}}>
+    <div className='go-back-button'>
       <Link to='/'>
         <button>
           Go back to the main page

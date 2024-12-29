@@ -19,7 +19,7 @@ test.describe('Main Page', async () => {
     
     // This test may sometimes give wrong output and always be true, as there is no way to clear all the rooms manually,
     // but since the next test checks if the code of the new room is different than the previous one, it's safe to assume
-    // that the output this test is actually true, when the other passes 
+    // that the output this test is actually true, when the other passes. Though, might be useful in the future
     test('should add a new room when clicked', async ({ context }) => {
       const [page1, page2] = context.pages();
       
