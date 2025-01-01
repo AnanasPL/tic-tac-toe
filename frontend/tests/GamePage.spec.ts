@@ -1,5 +1,11 @@
 import { test, expect, Page } from '@playwright/test';
-import { setUpAllPages, createANewRoomAndJoinIt, playTheGame, restartTheGame } from './setup';
+import { 
+  setUpAllPages, 
+  createANewRoomAndJoinIt, 
+  playTheGame, 
+  restartTheGame, 
+  TIMEOUT 
+} from './setup';
 
 const MESSAGES = [
   'Wait for the other player',
@@ -410,5 +416,5 @@ const rejoin = async (page: Page) => {
   await page.goto('/');
   await page.locator('.room').click();
   await page.locator('.cell').first().click();
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(TIMEOUT);
 } 

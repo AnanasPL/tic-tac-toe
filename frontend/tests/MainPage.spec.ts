@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { setUpAllPages } from './setup';
+import { setUpAllPages, TIMEOUT } from './setup';
 
 test.describe('Main Page', async () => {
   test.beforeEach(async ({ context }) => setUpAllPages(context, 3));
@@ -24,7 +24,7 @@ test.describe('Main Page', async () => {
       const [page1, page2] = context.pages();
       
       await page1.locator('.add-room-button').click();
-      await page2.waitForTimeout(600);
+      await page2.waitForTimeout(TIMEOUT);
 
       await expect(page2.locator('.room')).toBeVisible();
     });
@@ -33,15 +33,15 @@ test.describe('Main Page', async () => {
       const [page1, page2] = context.pages();
 
       await page1.locator('.add-room-button').click();
-      await page2.waitForTimeout(600);
+      await page2.waitForTimeout(TIMEOUT);
 
       const oldCode = (await page2.locator('.room').textContent())?.substring(0, 6);
       
-      await page1.waitForTimeout(600);
+      await page1.waitForTimeout(TIMEOUT);
       await page1.goto('/');
 
       await page1.locator('.add-room-button').click();
-      await page2.waitForTimeout(800);
+      await page2.waitForTimeout(TIMEOUT);
       
       const newCode = (await page2.locator('.room').textContent())?.substring(0, 6);
 
@@ -55,10 +55,10 @@ test.describe('Main Page', async () => {
       
       await page1.locator('.add-room-button').click();
 
-      await page2.waitForTimeout(800);
+      await page2.waitForTimeout(TIMEOUT);
       const roomCode = (await page2.locator('.room').textContent())?.substring(0, 6);
       await page2.locator('.room').click();
-      await page2.waitForTimeout(600);
+      await page2.waitForTimeout(TIMEOUT);
       
       await expect(page2.url().endsWith(roomCode!)).toBeTruthy();
     });
@@ -67,12 +67,12 @@ test.describe('Main Page', async () => {
       const [page1, page2, page3] = context.pages();
       
       await page1.locator('.add-room-button').click();
-      await page2.waitForTimeout(800);
+      await page2.waitForTimeout(TIMEOUT);
       await page2.locator('.room').click();
-      await page3.waitForTimeout(800);
+      await page3.waitForTimeout(TIMEOUT);
       await page3.locator('.room').click();
       
-      await page3.waitForTimeout(800);
+      await page3.waitForTimeout(TIMEOUT);
       // Having URL checked this way makes it not hardcoded into the tests, so if it ever 
       // changes, the only url that needs to be changed is in frontend/playwright.config.ts
       await expect(page3).toHaveURL(page2.url().split('room')[0]);
@@ -82,7 +82,7 @@ test.describe('Main Page', async () => {
       const [page1, page2, page3] = context.pages();
   
       await page1.locator('.add-room-button').click();    
-      await page1.waitForTimeout(600);
+      await page1.waitForTimeout(TIMEOUT);
       await page1.goto('/');
       
       const room1 = await page1.locator('.room');
@@ -94,6 +94,6 @@ test.describe('Main Page', async () => {
       await room2.click();
       
       await expect(page3.locator('.room')).toHaveText(/^[a-zA-z0-9]{6}2\/2$/);
-    }); //TODO: rejoining
+    });
   });
 });
