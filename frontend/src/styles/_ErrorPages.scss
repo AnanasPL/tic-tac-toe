@@ -1,5 +1,5 @@
 @import 'variables';
-
+// FIXME: it makes the button unclickable
 .error-message {
     @include flex-center();
     @include shadows($text-shadow-blur: 4px);

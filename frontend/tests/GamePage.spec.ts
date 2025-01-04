@@ -4,7 +4,7 @@ import {
   createANewRoomAndJoinIt, 
   playTheGame, 
   restartTheGame, 
-  TIMEOUT 
+  TIMEOUT
 } from './setup';
 
 const MESSAGES = [
@@ -171,14 +171,20 @@ test.describe('Game Page', async () => {
           const [page1, page2] = context.pages();
           
           await rejoin(page2);
+          await page2.locator('.cell').first().click();
           await expect(page2.locator('.cell').first()).toHaveText('');
+
           await rejoin(page1)
+          await page1.locator('.cell').first().click();
           await expect(page1.locator('.cell').first()).not.toHaveText('');
 
           await page2.locator('.cell').nth(2).click();
           await expect(page2.locator('.cell').nth(2)).not.toHaveText('');
         });
 
+        // This test is EXTREMELY buggy, almost always gives different results on non-chromium clients 
+        // (especially webkit). It seems like the problem lies in playwright, since manual tests and deep
+        // inspection confirmed that the functionality works as expected (not tested on webkit yet).
         test('should not mess up the symbols', async ({ context }) => {
           const [page1, page2] = context.pages();
 
@@ -364,8 +370,9 @@ test.describe('Game Page', async () => {
           await restartTheGame(context);
         });
 
-        // NOTE: The check if the game is NOT restarted when one or neither of the platers wants to is not necessary,
+        // NOTE: The check if the game is NOT restarted when one or neither of the players wants to is not necessary,
         // as it is already checked in 'Displaying playing again status' section - if playing again status is shown, then the game is not restarted
+        
         test('should restart the game when both players want to', async ({ context }) => {
           const [page1, page2] = context.pages();
 
@@ -414,7 +421,6 @@ test.describe('Game Page', async () => {
 
 const rejoin = async (page: Page) => {
   await page.goto('/');
-  await page.locator('.room').click();
-  await page.locator('.cell').first().click();
+  await page.locator('.room').first().click();
   await page.waitForTimeout(TIMEOUT);
 } 
