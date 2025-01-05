@@ -81,7 +81,7 @@
   text-shadow: 0 0 5px white;
   transition: ease 0.35s;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 60px;
   font-size: clamp(25px, 5vw, 70px);
 }
 
@@ -264,11 +264,7 @@
   box-shadow: 0 0 0 white;
   text-shadow: 0 0 4px white;
   transition: ease 0.35s;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  left: 0;
+  height: calc(100vh - 138px);
   font-size: clamp(20px, 5vw, 40px);
 }
 

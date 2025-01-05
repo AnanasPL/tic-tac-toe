@@ -4,10 +4,6 @@
     @include flex-center();
     @include shadows($text-shadow-blur: 4px);
     
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    left: 0;
+    height: calc(100vh - 138px);
     font-size: clamp(20px, 5vw, 40px);
 }
