@@ -1,13 +1,13 @@
 /.vscode/
 .env
 
-/docs/node_modules/
+/frontend/node_modules/
 /venv/
 
 **/__pycache__/
-/docs/.eslintrc.json
+/frontend/.eslintrc.json
 
 /.pytest_cache/
 .coverage
-/docs/test-results/
-/docs/playwright-report/
+/frontend/test-results/
+/frontend/playwright-report/

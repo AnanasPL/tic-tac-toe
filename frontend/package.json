@@ -1,5 +1,4 @@
 {
-  "homepage": "https://AnanasPL.github.io/tic-tac-toe",
   "name": "tic-tac-toe",
   "version": "0.1.0",
   "private": true,
@@ -16,8 +15,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,7 +42,6 @@
     "@types/node": "^22.8.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "gh-pages": "^6.3.0",
     "typescript": "^5.6.3"
   }
 }
