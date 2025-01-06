@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { socketContext } from '../contexts/socketContext';
 
@@ -12,7 +12,7 @@ import GamePage from './GamePage/GamePage';
 import PageNotFound from './ErrorPages/PageNotFound';
 import RoomNotFound from './ErrorPages/RoomNotFound';
 
-const router = createHashRouter([
+const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Rooms />,
