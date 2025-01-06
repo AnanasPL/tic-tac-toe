@@ -1,6 +1,6 @@
 import pytest
 
-from rooms.board import Board
+from game.board import Board
 from errors import *
 
 class TestWinCombinations:

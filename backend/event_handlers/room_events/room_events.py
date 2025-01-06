@@ -1,8 +1,8 @@
 from flask import request
 from flask_socketio import emit, join_room, leave_room
 
-from rooms.player import Player
-from rooms import Room
+from game.player import Player
+from game import Room
 from event_handlers.shared import rooms
 from ..event_handler import EventHandler
 
@@ -43,7 +43,6 @@ class RoomEvents(EventHandler):
             except RoomAlreadyFullError:
                 emit('room-already-full')
                 return
-            # TODO: cache (rejoining room)
 
             emit('rooms-update', {'rooms': rooms.get_rooms_info()}, broadcast=True)
             emit('board-update', room.game_state.get_board_state())

@@ -1,6 +1,6 @@
 import pytest
 
-from rooms import *
+from game import *
 
 @pytest.fixture
 def rooms():

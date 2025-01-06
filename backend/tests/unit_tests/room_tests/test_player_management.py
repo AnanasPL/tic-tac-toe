@@ -1,6 +1,6 @@
 import pytest
 
-from rooms import Room
+from game import Room
 from errors import *
 
 

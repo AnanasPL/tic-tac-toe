@@ -1,7 +1,7 @@
 from flask import request
 from flask_socketio import emit 
 
-from rooms.player import Player
+from game.player import Player
 
 from event_handlers.shared import rooms
 from ..event_handler import EventHandler
@@ -11,7 +11,6 @@ class GameEvents(EventHandler):
     def register_events(self) -> None:
         @self.socketio.on('board-update')
         def board_update(index: int):
-            #TODO: go from sending dicts to sending single args. will be easier
             room = rooms.get_player_room(request.sid)
             
             error_message = ''
@@ -46,7 +45,6 @@ class GameEvents(EventHandler):
 
             emit('play-again-state-update', room.game_state.play_again_state, to=room.code)
             
-            # If both players want to restart the game
             if room.game_state.all_players_want_to_play_again():
                 room.game_state.restart_game() 
 

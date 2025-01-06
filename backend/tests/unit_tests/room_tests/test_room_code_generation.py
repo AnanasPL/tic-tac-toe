@@ -1,6 +1,6 @@
 from string import ascii_letters, digits
 
-from rooms import Room
+from game import Room
 import pytest
 
 
