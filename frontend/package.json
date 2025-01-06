@@ -1,7 +1,7 @@
 {
-  "homepage": "http://ananaspl.github.io/tic-tac-toe/",
+  "homepage": "http://ananaspl.github.io/tic-tac-toe",
   "name": "tic-tac-toe",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import { socketContext } from '../contexts/socketContext';
 
@@ -12,7 +12,7 @@ import GamePage from './GamePage/GamePage';
 import PageNotFound from './ErrorPages/PageNotFound';
 import RoomNotFound from './ErrorPages/RoomNotFound';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
 		path: '/',
 		element: <Rooms />,
@@ -26,7 +26,11 @@ const router = createBrowserRouter([
 		path: '/room-not-found',
 		element: <RoomNotFound />,
 	},
-]);
+],
+	{
+		basename: '/tic-tac-toe',
+	}
+);
 
 const App = () => {
 	const socket = useSocket();
