@@ -81,7 +81,7 @@
   text-shadow: 0 0 5px white;
   transition: ease 0.35s;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 30px;
   font-size: clamp(25px, 5vw, 70px);
 }
 
