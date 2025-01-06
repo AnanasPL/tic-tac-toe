@@ -9,7 +9,7 @@ export interface socketFunctions {
 }
 
 const useSocket: () => socketFunctions = () => {
-  const socketRef = useRef<Socket>(io('http://localhost:5000'));
+  const socketRef = useRef<Socket>(io('https://tic-tac-toe-c7wa.onrender.com'));
 
   const emit = useCallback((message: string, data?: unknown) => {
     if (data === undefined) {
