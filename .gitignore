@@ -5,6 +5,7 @@
 /venv/
 
 **/__pycache__/
+/frontend/build/
 /frontend/.eslintrc.json
 
 /.pytest_cache/
