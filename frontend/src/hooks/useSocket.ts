@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import io, { Socket } from 'socket.io-client';
 
+import config from '../config.json';
+
 export interface socketFunctions {
   emit: (message: string, data?: unknown) => void,
   addMessageListener: (message: string, listenerFn: (...args: any[]) => void, oneTime?: boolean) => void,
@@ -9,7 +11,7 @@ export interface socketFunctions {
 }
 
 const useSocket: () => socketFunctions = () => {
-  const socketRef = useRef<Socket>(io('https://tic-tac-toe-c7wa.onrender.com'));
+  const socketRef = useRef<Socket>(io(config.socket_url));
 
   const emit = useCallback((message: string, data?: unknown) => {
     if (data === undefined) {

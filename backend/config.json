@@ -1,0 +1,5 @@
+{
+    "LAN": true, 
+    "port": 5000,
+    "CORS_origin": "http://ananaspl.github.io"
+}

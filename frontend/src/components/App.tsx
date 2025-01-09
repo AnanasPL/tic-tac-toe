@@ -12,6 +12,8 @@ import GamePage from './GamePage/GamePage';
 import PageNotFound from './ErrorPages/PageNotFound';
 import RoomNotFound from './ErrorPages/RoomNotFound';
 
+import config from '../config.json';
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
 	},
 ],
 	{
-		basename: '/tic-tac-toe',
+		basename: config.basename,
 	}
 );
 
