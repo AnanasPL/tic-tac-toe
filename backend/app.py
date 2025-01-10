@@ -15,7 +15,7 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 
-socketio = SocketIO(app, cors_allowed_origins=config['CORS_origin'])
+socketio = SocketIO(app, cors_allowed_origins=config['CORS_allowed_origins'])
 
 initialize_all_handlers(socketio)
 

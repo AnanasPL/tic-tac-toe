@@ -2,13 +2,13 @@
 .env
 
 /frontend/node_modules/
-/venv/
+/backend/venv/
 
 **/__pycache__/
 /frontend/build/
 /frontend/.eslintrc.json
 
-/.pytest_cache/
-.coverage
+/backend/.pytest_cache/
+/backend/.coverage
 /frontend/test-results/
 /frontend/playwright-report/
