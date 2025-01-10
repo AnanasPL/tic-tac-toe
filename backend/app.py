@@ -20,4 +20,4 @@ socketio = SocketIO(app, cors_allowed_origins=config['CORS_origin'])
 initialize_all_handlers(socketio)
 
 if __name__ == "__main__":
-    socketio.run(app, port=config['port'], host='0.0.0.0' if config['LAN'] else '127.0.0.1')
+    socketio.run(app, port=config['port'], host=config['host'])
